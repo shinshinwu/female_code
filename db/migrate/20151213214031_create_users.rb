@@ -1,12 +1,14 @@
 class CreateUsers < ActiveRecord::Migration
   def change
     create_table :users do |t|
-      ## Database authenticatable
       t.string :email,              null: false, default: ""
       t.string :provider
       t.string :uid
       t.string :name
       t.string :display_name
+      t.reference :programming_language
+      t.reference :company
+
       t.timestamps
     end
 

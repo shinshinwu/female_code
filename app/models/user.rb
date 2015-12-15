@@ -1,4 +1,6 @@
 class User < ActiveRecord::Base
+  has_one :programming_language
+  belongs_to :company
 
   def self.create_with_omniauth(auth)
     create! do |user|

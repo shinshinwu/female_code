@@ -52,6 +52,7 @@ group :development, :test do
   gem 'spring'
 
   gem 'better_errors', '~> 2.1.1'  # better error display for debugging
+  gem 'binding_of_caller', '~> 0.7.2'
 
   gem 'dotenv-rails', '~> 2.0.2'   # storing secrets
 end
