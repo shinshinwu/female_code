@@ -42,11 +42,15 @@ ActiveRecord::Schema.define(version: 20160110140543) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.string   "email",        limit: 255, default: "", null: false
-    t.string   "provider",     limit: 255
-    t.string   "uid",          limit: 255
-    t.string   "name",         limit: 255
-    t.string   "display_name", limit: 255
+    t.string   "email",                   limit: 255,   default: "", null: false
+    t.string   "provider",                limit: 255
+    t.string   "uid",                     limit: 255
+    t.string   "name",                    limit: 255
+    t.string   "display_name",            limit: 255
+    t.text     "thoughts",                limit: 65535
+    t.integer  "salary",                  limit: 4
+    t.integer  "programming_language_id", limit: 4
+    t.integer  "company_id",              limit: 4
     t.datetime "created_at"
     t.datetime "updated_at"
   end

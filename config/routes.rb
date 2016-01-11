@@ -4,6 +4,7 @@ Rails.application.routes.draw do
 
   # You can have the root of your site routed with "root"
   root 'users#new'
+  get '/stats' => 'companies#charts'
   get '/auth/github/callback' => 'sessions#create'
   delete 'logout' => 'sessions#destroy', :as => :logout
 
