@@ -3,7 +3,12 @@
   width:            100%;
 
   #bar-chart {
-    width: 90%;
-    height: 5000px;
+    width:          90%;
+    height:         5000px;
+    display:        none;
+  }
+
+  #pie-chart {
+    display:        block;
   }
 }
