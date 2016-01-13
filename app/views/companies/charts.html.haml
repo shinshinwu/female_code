@@ -1,16 +1,6 @@
 = stylesheet_link_tag    'charts'
-%script(src="https://code.highcharts.com/highcharts.js")
-%script(src="https://code.highcharts.com/modules/exporting.js")
-
 
 .chart-wrapper
-  %a#bar-chart-link{ href: '#'}
-    Click to see bar chart
-
-  %br
-
-  %a#pie-chart-link{ href: '#'}
-    Click to see pie chart
   #bar-chart
   #pie-chart
 
@@ -59,51 +49,5 @@
           name: 'Female Engineers',
           data: gon.female_eng_nums
       }]
-    });
-
-    $('#pie-chart').highcharts({
-        chart: {
-            plotBackgroundColor: null,
-            plotBorderWidth: null,
-            plotShadow: false,
-            type: 'pie'
-        },
-        title: {
-            text: 'Female vs. Male Software Engineer Ratio'
-        },
-        tooltip: {
-            pointFormat: 'Percentage: <b>{point.percentage:.1f}%</b>'
-        },
-        plotOptions: {
-            pie: {
-                allowPointSelect: true,
-                cursor: 'pointer',
-                dataLabels: {
-                    enabled: true,
-                    style: {
-                        color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
-                    }
-                }
-            }
-        },
-        series: [{
-            name: 'Percentage',
-            colorByPoint: true,
-            data: [{
-                name: 'Female',
-                y: gon.female_percentage,
-                sliced: true,
-                selected: true,
-                dataLabels: {
-                  format: gon.female_engineers_num + ' <b>{point.name}</b><br />{point.percentage:.1f} %'
-                }
-            }, {
-                name: 'Male',
-                y: gon.male_percentage,
-                dataLabels: {
-                  format: gon.male_engineers_num + ' <b>{point.name}</b><br />{point.percentage:.1f} %'
-                }
-            }]
-        }]
     });
   });

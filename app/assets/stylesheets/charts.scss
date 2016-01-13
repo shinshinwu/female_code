@@ -5,10 +5,11 @@
   #bar-chart {
     width:          90%;
     height:         5000px;
-    display:        none;
   }
 
-  #pie-chart {
-    display:        block;
-  }
+}
+
+#pie-chart {
+  display:        block;
+  margin-top:     -90px;
 }

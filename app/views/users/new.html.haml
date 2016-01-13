@@ -1,6 +1,8 @@
+= stylesheet_link_tag    'charts'
+
 .splash-container
   .splash
-    %h1.splash-head See the stats
+    #pie-chart
     %p.splash-subhead
       How many female software engineers are in your company?
     %p
@@ -69,3 +71,54 @@
           tempor incididunt ut labore et dolore magna aliqua.
   .footer.l-box.is-center
     View the source of this layout to learn more. Made with love by the YUI Team.
+
+
+:javascript
+  $(function () {
+    $('#pie-chart').highcharts({
+        chart: {
+            plotBackgroundColor: '#F7F7F7',
+            plotShadow: false,
+            type: 'pie'
+        },
+        credits: { enabled: false },
+        exporting: { enabled: false },
+        title: {
+            text: 'Female vs. Male Software Engineer Ratio'
+        },
+        tooltip: {
+            pointFormat: 'Percentage: <b>{point.percentage:.1f}%</b>'
+        },
+        plotOptions: {
+            pie: {
+                allowPointSelect: true,
+                cursor: 'pointer',
+                dataLabels: {
+                    enabled: true,
+                    style: {
+                        color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                    }
+                }
+            }
+        },
+        series: [{
+            name: 'Percentage',
+            colorByPoint: true,
+            data: [{
+                name: 'Female Engineers',
+                y: gon.female_percentage,
+                sliced: true,
+                selected: true,
+                dataLabels: {
+                  format: gon.female_engineers_num + ' <b>{point.name}</b><br />{point.percentage:.1f} %'
+                }
+            }, {
+                name: 'Male Engineers',
+                y: gon.male_percentage,
+                dataLabels: {
+                  format: gon.male_engineers_num + ' <b>{point.name}</b><br />{point.percentage:.1f} %'
+                }
+            }]
+        }]
+    });
+  });
