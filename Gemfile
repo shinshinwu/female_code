@@ -39,7 +39,9 @@ gem 'mysql2',          '~> 0.3.18'                      # db
 
 # TEMPLATING
 gem 'haml',            '~> 4.0.7'                       # simplified erb
-gem 'gon',             '~> 5.2.3'
+gem 'gon',             '~> 5.2.3'                       # plugin to jam ruby variables to have them accessible for js
+gem 'city-state',      '~> 0.0.13'                      # helper to layout all cities, states and countries
+
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

@@ -1,0 +1,42 @@
+.content
+  %h2.content-head.is-center Moving call out to submit stats
+  .pure-g
+    .l-box-lrg.pure-u-1.pure-u-md-2-5
+      = form_for @company, url: {action: "create"}, html:{class: 'form pure-form pure-form-stacked'} do |f|
+        %fieldset
+          = f.label :name, "Company Name"
+          = f.text_field :name, :placeholder => 'Google'
+
+          = f.label :is_public, "Public or Private Company?"
+          = f.select :is_public, options_for_select([['Public', 'true'], ['Private', 'false']])
+
+          = f.label :url, 'Company URL'
+          = f.text_field :url, :placeholder => 'google.com'
+
+          %label{:for => "headquarter"} Where is your company located?
+
+          / needs to get script to dynamically update cities below depends on country and state selection
+
+          %label{:for => "country"} Country
+          = select_tag "company[headquarter][country]", options_from_collection_for_select(@countries, 'last', 'first', 'US')
+
+          %label{:for => "state"} State
+          = select_tag "company[headquarter][state]", options_from_collection_for_select(@us_states, 'last', 'first', 'CA')
+
+          %label{:for => "state"} City
+          = select_tag "company[headquarter][city]", options_from_collection_for_select(@ca_cities, 'to_s', 'to_s', 'San Francisco')
+
+          = f.label :company_size_tier_id, 'What is your company size?'
+          = f.select :company_size_tier, @company_size_tier.collect {|tier| [tier.range, tier.id]}
+          %span employees
+
+          = f.label :num_eng, 'How many software engineers does your company have?'
+          %p Link or brief description of job title here
+          = f.number_field :num_eng, :min => 1
+
+          = f.label :num_female_eng, 'How many of those engineers are female?'
+          = f.number_field :num_female_eng, :min => 0
+
+          / ask if they are engineers and if they are, what are their gender, language and salary if they wish to report
+
+          = f.submit "Submit", :class => 'button pure-button'

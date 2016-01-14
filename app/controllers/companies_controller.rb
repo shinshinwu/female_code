@@ -1,5 +1,17 @@
 class CompaniesController < ApplicationController
 
+  def new
+    @user    = current_user
+    @company = Company.new
+    @company_size_tier = CompanySizeTier.all
+    @countries = CS.get.map {|code, name| [name, code.to_s]}
+    @us_states = CS.states(:us).map {|code, name| [name, code.to_s]}
+    @ca_cities = CS.cities(:ca)
+  end
+
+  def create
+  end
+
   def charts
     @companies          = Company.all
     # bar chart
