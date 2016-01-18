@@ -10,8 +10,11 @@ Rails.application.routes.draw do
   resources :companies, only: [:new, :create] do
     collection do
       get '/stats', to: 'companies#charts'
+      get '/:country_code/states', to: 'companies#states'
+      get '/:state_code/cities', to: 'companies#cities'
     end
   end
+
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 
