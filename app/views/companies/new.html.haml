@@ -20,11 +20,13 @@
           %label{:for => "country"} Country
           = select_tag "company[headquarter][country]", options_from_collection_for_select(@countries, 'last', 'first', 'US')
 
-          %label{:for => "state"} State
-          = select_tag "company[headquarter][state]", options_from_collection_for_select(@states, 'last', 'first', 'CA')
+          #headquarter-state
+            %label{:for => "state"} State
+            = select_tag "company[headquarter][state]", options_from_collection_for_select(@states, 'last', 'first', 'CA')
 
-          %label{:for => "state"} City
-          = select_tag "company[headquarter][city]", options_from_collection_for_select(@cities, 'to_s', 'to_s', 'San Francisco')
+          #headquarter-city
+            %label{:for => "state"} City
+            = select_tag "company[headquarter][city]", options_from_collection_for_select(@cities, 'to_s', 'to_s', 'San Francisco')
 
           = f.label :company_size_tier_id, 'What is your company size?'
           = f.select :company_size_tier, @company_size_tier.collect {|tier| [tier.range, tier.id]}
@@ -45,28 +47,39 @@
 :javascript
   $(function () {
     $('#company_headquarter_country').change(function(e) {
+      $('#headquarter-state').show();
+      $('#headquarter-city').show();
       var country_code = $(this).val();
       var url = '/companies/' + country_code + '/states'
       $.getJSON(url, function(data){
-        var optionsValues = '<option selected>Select State</option>'
-        $.each(data, function(code, name){
-          optionsValues += '<option value="' + code + '">' + name + '</option>'
-        });
-        console.log(optionsValues);
-        $('#company_headquarter_state').html(optionsValues);
+        if (jQuery.isEmptyObject(data)) {
+          $('#headquarter-state').hide();
+          $('#headquarter-city').hide();
+        } else {
+          var optionsValues = '<option selected>Select State</option>'
+          $.each(data, function(code, name){
+            optionsValues += '<option value="' + code + '">' + name + '</option>'
+          });
+          $('#company_headquarter_state').html(optionsValues);
+          $('#company_headquarter_city').html('<option selected>Select Cities</option>');
+        };
       });
     });
 
     $('#company_headquarter_state').change(function(e) {
+      $('#headquarter-city').show();
       var state_code = $(this).val();
       var url = '/companies/' + state_code + '/cities'
       $.getJSON(url, function(data){
-        var optionsValues = '<option selected>Select Cities</option>'
-        $.each(data, function(key, name){
-          optionsValues += '<option value="' + name + '">' + name + '</option>'
-        });
-        console.log(optionsValues);
-        $('#company_headquarter_city').html(optionsValues);
+        if (jQuery.isEmptyObject(data)) {
+          var optionsValues = '<option selected>Select Cities</option>'
+          $.each(data, function(key, name){
+            optionsValues += '<option value="' + name + '">' + name + '</option>'
+          });
+          $('#company_headquarter_city').html(optionsValues);
+        } else {
+          $('#headquarter-city').hide();
+        };
       });
     });
 
