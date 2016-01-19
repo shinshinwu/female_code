@@ -9,8 +9,10 @@ class SessionsController < ApplicationController
     auth = request.env["omniauth.auth"]
     user = User.find_by_provider_and_uid(auth["provider"], auth["uid"]) || User.create_with_omniauth(auth)
     session[:user_id] = user.id
-    if user.company
+    if user.company && user.has_full_stats?
       render 'show'
+    elsif user.company
+      # redirect to user profile form
     else
       redirect_to new_company_path, :notice => "Signed in!"
     end

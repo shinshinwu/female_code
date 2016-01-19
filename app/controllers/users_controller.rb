@@ -12,4 +12,11 @@ class UsersController < ApplicationController
     gon.male_percentage      = 1 - female_percentage
     gon.male_engineers_num   = total_num_males.to_s.reverse.gsub(/(\d{3})(?=\d)/, '\\1,').reverse
   end
+
+  def show
+    @user = current_user
+  end
+
+  def create
+  end
 end

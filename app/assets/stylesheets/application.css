@@ -76,12 +76,20 @@ label {
     font-size:                          100%;
 }
 
+.pure-form legend {
+    margin:                             1em 0;
+}
+
 .pure-form input[type] {
     border:                             2px solid #ddd;
     box-shadow:                         none;
     font-size:                          100%;
     width:                              100%;
     margin-bottom:                      1em;
+}
+
+.center {
+    padding:                            0 20%;
 }
 
 /*

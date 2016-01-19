@@ -10,4 +10,8 @@ class User < ActiveRecord::Base
     end
   end
 
+  def has_full_stats?
+    thoughts && salary && programming_language
+  end
+
 end

@@ -1,1 +1,29 @@
 / ask user their language and salary info
+.content
+  %h2.content-head.is-center Moving call out to submit stats
+  = form_for @user, url: {action: "update"}, html:{class: 'form pure-form pure-form-stacked center'} do |f|
+    %fieldset
+      .pure-g
+        .pure-u-1.pure-u-md-1-3
+          = f.label :display_name, "Your Name"
+          .pure-u-23-24
+            = f.text_field :display_name, :value => @user.name
+        / need to ask if they are developer first and if they are, if they are female
+        .pure-u-1.pure-u-md-1-3
+          = f.label :programming_language, "What's your preferred weapon of destruction?"
+          .pure-u-23-24
+            = f.select :programming_language, options_from_collection_for_select(ProgrammingLanguage.all, :id, :language), :include_blank => true
+
+        .pure-u-1.pure-u-md-1-3
+          .pure-u-23-24
+            = f.label :salary, 'What is your annual salary?'
+            = f.number_field :salary, :min => 10000, :max => 10000000
+
+        .pure-u-1.pure-u-md-3-3
+          = f.label :thoughts, "Being a female software engineer, I feel ..."
+          .pure-u-23-24
+            = f.text_area :thoughts, :placeholder => "... like I need to be careful with how I act all the time...", :row => '4', :cols => '50'
+
+        .pure-u-1.pure-u-md-1-3
+        .pure-u-1.pure-u-md-1-3
+          = f.submit "Submit", :class => 'button pure-button'
