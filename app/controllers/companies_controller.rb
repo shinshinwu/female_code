@@ -25,6 +25,30 @@ class CompaniesController < ApplicationController
   end
 
   def create
+    # TODO: need to think about how to standardize and sanitize the company url and name input
+    # binding.pry
+    @company = Company.where(url: params[:company][:url]).first || Company.new
+
+    # TODO: if found a match, what should it do?
+    if @company.persisted?
+    # if not found, create a new row
+    else
+      @company.name           = params[:company][:name]
+      @company.url            = params[:company][:url]
+      @company.is_public      = params[:company][:is_public] == "true"
+      @company.company_size_tier_id = params[:company][:company_size_tier_id]
+      @company.num_eng        = params[:company][:num_eng]
+      @company.num_female_eng = params[:company][:num_female_eng]
+      # TODO: match the headquarter location
+      if @company.save
+        flash[:notice] = "Thanks for your contribution!"
+        redirect_to user_path(current_user.id)
+      else
+        # TODO: be more specific with the error here
+        flash[:notice] = "Sorry something went wrong with you submission"
+        redirect_to :back
+      end
+    end
   end
 
   def charts

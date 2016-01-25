@@ -88,8 +88,8 @@ tiers = CompanySizeTier.create([
   { range: '51-200' },
   { range: '201-500' },
   { range: '501-1000' },
-  { range: '10001-5000' },
-  { range: '50001-10000' },
+  { range: '1001-5000' },
+  { range: '5001-10000' },
   { range: '10000+'}
 ])
 

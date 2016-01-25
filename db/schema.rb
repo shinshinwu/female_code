@@ -11,16 +11,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160110140543) do
+ActiveRecord::Schema.define(version: 20160124202741) do
 
   create_table "companies", force: :cascade do |t|
-    t.string   "name",                 limit: 255, null: false
+    t.string   "name",                 limit: 255,                 null: false
     t.boolean  "is_public",            limit: 1
     t.string   "url",                  limit: 255
-    t.integer  "num_female_eng",       limit: 4,   null: false
-    t.integer  "num_eng",              limit: 4,   null: false
+    t.integer  "num_female_eng",       limit: 4,                   null: false
+    t.integer  "num_eng",              limit: 4,                   null: false
     t.integer  "headquarter_id",       limit: 4
     t.integer  "company_size_tier_id", limit: 4
+    t.boolean  "is_approved",          limit: 1,   default: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end

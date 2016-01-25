@@ -6,14 +6,14 @@
         .pure-u-1.pure-u-md-3-3
           %legend The Basics
         .pure-u-1.pure-u-md-1-3
-          = f.label :name, "Company Name"
-          .pure-u-23-24
-            = f.text_field :name, :placeholder => 'Google'
-
-        .pure-u-1.pure-u-md-1-3
           = f.label :url, 'Company URL'
           .pure-u-23-24
             = f.text_field :url, :placeholder => 'google.com'
+
+        .pure-u-1.pure-u-md-1-3
+          = f.label :name, "Company Name"
+          .pure-u-23-24
+            = f.text_field :name, :placeholder => 'Google'
 
         .pure-u-1.pure-u-md-1-3
           = f.label :is_public, "Public/Private Company?"
@@ -26,7 +26,7 @@
         .pure-u-1.pure-u-md-3-3
           %label{:for => "country"} Country
           .pure-u-23-24
-            = select_tag "company[headquarter][country]", options_from_collection_for_select(@countries, 'last', 'first', 'US')
+            = select_tag "company[headquarter][country]", options_from_collection_for_select(@countries, 'last', 'first'), prompt: "Select Country"
 
         .pure-u-1.pure-u-md-3-3#headquarter-state
           %label{:for => "state"} State
@@ -44,7 +44,7 @@
         .pure-u-1.pure-u-md-1-3
           .pure-u-23-24
             = f.label :company_size_tier_id, 'What is your company size?'
-            = f.select :company_size_tier, @company_size_tier.collect {|tier| [tier.range, tier.id]}
+            = f.select :company_size_tier_id, @company_size_tier.collect {|tier| [tier.range, tier.id]}
           %span employees
 
         .pure-u-1.pure-u-md-1-3
