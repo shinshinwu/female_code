@@ -33,8 +33,8 @@ ActiveRecord::Schema.define(version: 20160124202741) do
   end
 
   create_table "headquarters", force: :cascade do |t|
-    t.string "city",    limit: 255,                null: false
-    t.string "state",   limit: 255,                null: false
+    t.string "city",    limit: 255
+    t.string "state",   limit: 255
     t.string "country", limit: 255, default: "US", null: false
   end
 

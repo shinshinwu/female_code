@@ -31,12 +31,12 @@
         .pure-u-1.pure-u-md-3-3#headquarter-state
           %label{:for => "state"} State
           .pure-u-23-24
-            = select_tag "company[headquarter][state]", options_from_collection_for_select(@states, 'last', 'first', 'CA')
+            = select_tag "company[headquarter][state]"
 
         .pure-u-1.pure-u-md-3-3#headquarter-city
           %label{:for => "state"} City
           .pure-u-23-24
-            = select_tag "company[headquarter][city]", options_from_collection_for_select(@cities, 'to_s', 'to_s', 'San Francisco')
+            = select_tag "company[headquarter][city]"
 
         .pure-u-1.pure-u-md-3-3
           %legend The Numbers
@@ -63,13 +63,20 @@
         .pure-u-1.pure-u-md-1-3
           = f.submit "Submit", :class => 'button pure-button'
 
-/ no UK on the county list
 :javascript
   $(function () {
-    $('#headquarter-state').hide();
-    $('#headquarter-city').hide();
-    $('#company_headquarter_country').change(function(e) {
+
+    function location_options_reset (){
+      $('#headquarter-state').hide();
       $('#headquarter-city').hide();
+      $("#company_headquarter_state").find('option').remove();
+      $("#company_headquarter_city").find('option').remove();
+    };
+
+    location_options_reset();
+
+    $('#company_headquarter_country').change(function(e) {
+      location_options_reset();
       var country_code = $(this).val();
       var url = '/companies/' + country_code + '/states'
       $.getJSON(url, function(data){
@@ -86,6 +93,8 @@
     });
 
     $('#company_headquarter_state').change(function(e) {
+      $('#headquarter-city').hide();
+      $("#company_headquarter_city").find('option').remove();
       var state_code = $(this).val();
       var url = '/companies/' + state_code + '/cities'
       $.getJSON(url, function(data){

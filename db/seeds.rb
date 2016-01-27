@@ -1,10 +1,3 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
-#
-# Examples:
-#
-#   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
-#   Mayor.create(name: 'Emanuel', city: cities.first)
 
 languages = ProgrammingLanguage.create([
   { language: 'PHP' },
@@ -57,7 +50,7 @@ headquarters = Headquarter.create([
   { city: 'San Mateo', state: 'CA' },
   { city: 'Vancouver', state: 'BC', country: 'CA' },
   { city: 'Oakland', state: 'CA' },
-  { city: 'London', state: 'London', country: 'UK' },
+  { city: 'London', state: 'London', country: 'GB' },
   { city: 'Phoenix', state: 'AZ' },
   { city: 'Santa Monica', state: 'CA' },
   { city: 'Toronto', state: 'Ontario' },
@@ -282,3 +275,64 @@ companies = Company.create([
 { name: "Makeshift, London", num_female_eng: 2, num_eng: 7, is_public: false, url: "makeshift.io", company_size_tier_id: 1, headquarter_id: Headquarter.where(city: "London").first.id  },
 { name: "Flatiron Health", num_female_eng: 1, num_eng: 7, is_public: false, url: "flatiron.com", company_size_tier_id: 3, headquarter_id: Headquarter.where(city: "New York").first.id  },
 ])
+
+# RAW SQL
+
+# INSERT INTO `headquarters` (`id`, `city`, `state`, `country`)
+# VALUES
+#   (20, 'Vancouver', 'BC', 'CA'),
+#   (41, 'Victoria', 'BC', 'CA'),
+#   (22, 'London', 'London', 'GB'),
+#   (1, 'San Francisco', 'CA', 'US'),
+#   (2, 'Chicago', 'IL', 'US'),
+#   (3, 'San Diego', 'CA', 'US'),
+#   (4, 'Washington D.C.', 'D.C.', 'US'),
+#   (5, 'New York', 'NY', 'US'),
+#   (6, 'Foster City', 'CA', 'US'),
+#   (7, 'San Jose', 'CA', 'US'),
+#   (8, 'Cambridge', 'MA', 'US'),
+#   (9, 'Los Angeles', 'CA', 'US'),
+#   (10, 'Seattle', 'WA', 'US'),
+#   (11, 'Portland', 'OR', 'US'),
+#   (12, 'Alexandria', 'VA', 'US'),
+#   (13, 'Menlo Park', 'CA', 'US'),
+#   (14, 'Fort Worth', 'TX', 'US'),
+#   (15, 'Palo Alto', 'CA', 'US'),
+#   (16, 'College Station', 'TX', 'US'),
+#   (17, 'Mountain View', 'CA', 'US'),
+#   (18, 'Alameda', 'CA', 'US'),
+#   (19, 'San Mateo', 'CA', 'US'),
+#   (21, 'Oakland', 'CA', 'US'),
+#   (23, 'Phoenix', 'AZ', 'US'),
+#   (24, 'Santa Monica', 'CA', 'US'),
+#   (25, 'Toronto', 'Ontario', 'US'),
+#   (26, 'Durham', 'NC', 'US'),
+#   (27, 'Philadelphia', 'PA', 'US'),
+#   (28, 'San Luis Obispo', 'CA', 'US'),
+#   (29, 'Annapolis', 'MD', 'US'),
+#   (30, 'Columbia', 'MD', 'US'),
+#   (31, 'Brooklyn', 'NY', 'US'),
+#   (32, 'Redwood City', 'CA', 'US'),
+#   (33, 'Salt Lake City', 'UT', 'US'),
+#   (34, 'Orlando', 'FL', 'US'),
+#   (35, 'Austin', 'TX', 'US'),
+#   (36, 'Holland', 'MI', 'US'),
+#   (37, 'Conshohocken', 'PA', 'US'),
+#   (38, 'Charlottesville', 'VA', 'US'),
+#   (39, 'Madison', 'WI', 'US'),
+#   (40, 'Sacramento', 'CA', 'US'),
+#   (42, 'Redmond', 'WA', 'US'),
+#   (43, 'Lexington', 'KY', 'US'),
+#   (44, 'Pacific Palisades', 'CA', 'US');
+
+
+# INSERT INTO `company_size_tiers` (`id`, `range`)
+# VALUES
+#   (1, '2-10'),
+#   (2, '11-50'),
+#   (3, '51-200'),
+#   (4, '201-500'),
+#   (5, '501-1000'),
+#   (6, '1001-5000'),
+#   (7, '5001-10000'),
+#   (8, '10000+');

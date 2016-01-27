@@ -1,8 +1,8 @@
 class CreateHeadquarters < ActiveRecord::Migration
   def change
     create_table :headquarters do |t|
-      t.string :city,              null: false
-      t.string :state,             null: false
+      t.string :city
+      t.string :state
       t.string :country,           null: false, default: 'US'
     end
 
