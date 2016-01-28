@@ -30,10 +30,17 @@ class CompaniesController < ApplicationController
     # binding.pry
     @user    = current_user
     @company = Company.where(url: params[:company][:url]).first || Company.new
+    @num_eng = params[:company][:company_staff_stat][:num_eng]
+    @num_female_eng = params[:company][:company_staff_stat][:num_female_eng]
 
     # TODO: if found a match, what should it do?
     if @company.persisted?
-      CompanyStaffStat.create(company_id: @company.id, user_id: @user.id, num_female_eng: 1, num_eng: 1)
+      CompanyStaffStat.create(
+        company_id: @company.id,
+        user_id: @user.id,
+        num_female_eng: num_female_eng,
+        num_eng: num_eng
+      )
     else
       ActiveRecord::Base.transaction do
         @company.name           = params[:company][:name]
@@ -41,9 +48,11 @@ class CompaniesController < ApplicationController
         @company.is_public      = params[:company][:is_public] == "true"
         @company.company_size_tier_id = params[:company][:company_size_tier_id]
 
-        @new_stat                = CompanyStaffStat.new(user_id: @user.id)
-        @new_stat.num_eng        = params[:company][:num_eng]
-        @new_stat.num_female_eng = params[:company][:num_female_eng]
+        @new_stat                = CompanyStaffStat.new(
+          user_id: @user.id,
+          num_female_eng: num_female_eng,
+          num_eng: num_eng
+        )
 
         city    = params[:company][:headquarter][:city]
         state   = params[:company][:headquarter][:state]

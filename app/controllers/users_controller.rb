@@ -14,9 +14,22 @@ class UsersController < ApplicationController
   end
 
   def show
-    @user = current_user
+    # @user = current_user # move this into a before filter
+    # TO DELTE: get around when github is down
+    @user = User.first
   end
 
   def create
+  end
+
+  def update
+    binding.pry
+    # TO DELTE: get around when github is down
+    @user = User.first
+    @user.display_name = params[:user][:display_name]
+    @user.programming_language_id = params[:user][:programming_language_id]
+    @user.salary = params[:user][:salary].to_f
+    thought = Thought.new(user_id: @user.id)
+
   end
 end
