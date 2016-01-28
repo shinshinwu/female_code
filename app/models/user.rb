@@ -1,6 +1,8 @@
 class User < ActiveRecord::Base
+  has_one :company_staff_stat
+  has_one :company, through: :company_staff_stat
+  has_many :thoughts
   belongs_to :programming_language
-  belongs_to :company
 
   def self.create_with_omniauth(auth)
     create! do |user|

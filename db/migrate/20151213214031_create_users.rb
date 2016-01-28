@@ -6,10 +6,8 @@ class CreateUsers < ActiveRecord::Migration
       t.string     :uid
       t.string     :name
       t.string     :display_name
-      t.text       :thoughts
       t.integer    :salary
       t.references :programming_language
-      t.references :company
 
       t.timestamps
     end

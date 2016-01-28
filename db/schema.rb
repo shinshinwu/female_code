@@ -11,17 +11,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160124202741) do
+ActiveRecord::Schema.define(version: 20160127134822) do
 
   create_table "companies", force: :cascade do |t|
-    t.string   "name",                 limit: 255,                 null: false
+    t.string   "name",                 limit: 255, null: false
     t.boolean  "is_public",            limit: 1
     t.string   "url",                  limit: 255
-    t.integer  "num_female_eng",       limit: 4,                   null: false
-    t.integer  "num_eng",              limit: 4,                   null: false
     t.integer  "headquarter_id",       limit: 4
     t.integer  "company_size_tier_id", limit: 4
-    t.boolean  "is_approved",          limit: 1,   default: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -30,6 +27,16 @@ ActiveRecord::Schema.define(version: 20160124202741) do
 
   create_table "company_size_tiers", force: :cascade do |t|
     t.string "range", limit: 255, null: false
+  end
+
+  create_table "company_staff_stats", force: :cascade do |t|
+    t.integer  "company_id",     limit: 4,                 null: false
+    t.integer  "user_id",        limit: 4,                 null: false
+    t.integer  "num_female_eng", limit: 4,                 null: false
+    t.integer  "num_eng",        limit: 4,                 null: false
+    t.boolean  "is_approved",    limit: 1, default: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "headquarters", force: :cascade do |t|
@@ -42,16 +49,21 @@ ActiveRecord::Schema.define(version: 20160124202741) do
     t.string "language", limit: 255, null: false
   end
 
+  create_table "thoughts", force: :cascade do |t|
+    t.integer  "user_id",    limit: 4,     null: false
+    t.text     "thoughts",   limit: 65535, null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "users", force: :cascade do |t|
-    t.string   "email",                   limit: 255,   default: "", null: false
+    t.string   "email",                   limit: 255, default: "", null: false
     t.string   "provider",                limit: 255
     t.string   "uid",                     limit: 255
     t.string   "name",                    limit: 255
     t.string   "display_name",            limit: 255
-    t.text     "thoughts",                limit: 65535
     t.integer  "salary",                  limit: 4
     t.integer  "programming_language_id", limit: 4
-    t.integer  "company_id",              limit: 4
     t.datetime "created_at"
     t.datetime "updated_at"
   end

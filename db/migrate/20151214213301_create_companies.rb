@@ -4,10 +4,8 @@ class CreateCompanies < ActiveRecord::Migration
       t.string     :name,              null: false
       t.boolean    :is_public
       t.string     :url
-      t.integer    :num_female_eng,   null: false
-      t.integer    :num_eng,          null: false
       t.references :headquarter
-      t.references :company_size_tiers
+      t.references :company_size_tier
 
       t.timestamps
     end
