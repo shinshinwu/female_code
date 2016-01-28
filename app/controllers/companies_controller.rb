@@ -26,50 +26,57 @@ class CompaniesController < ApplicationController
 
   def create
     # TODO: need to think about how to standardize and sanitize the company url and name input
+    # redirect user from this page if they are not signed in
     # binding.pry
     @user    = current_user
     @company = Company.where(url: params[:company][:url]).first || Company.new
 
     # TODO: if found a match, what should it do?
     if @company.persisted?
-    # if not found, create a new row
+      CompanyStaffStat.create(company_id: @company.id, user_id: @user.id, num_female_eng: 1, num_eng: 1)
     else
-      @company.name           = params[:company][:name]
-      @company.url            = params[:company][:url]
-      @company.is_public      = params[:company][:is_public] == "true"
-      @company.company_size_tier_id = params[:company][:company_size_tier_id]
-      @company.num_eng        = params[:company][:num_eng]
-      @company.num_female_eng = params[:company][:num_female_eng]
-      # TODO: match the headquarter location
-      # try find if headquarter location exist in db, if it does, save the correct id to it. if not, create one and map the new id
-      city    = params[:company][:headquarter][:city]
-      state   = params[:company][:headquarter][:state]
-      country = params[:company][:headquarter][:country]
-      # what if there is only country or only country and state?
-      headquarter = Headquarter.where(city: city, state: state, country: country).first
+      ActiveRecord::Base.transaction do
+        @company.name           = params[:company][:name]
+        @company.url            = params[:company][:url]
+        @company.is_public      = params[:company][:is_public] == "true"
+        @company.company_size_tier_id = params[:company][:company_size_tier_id]
 
-      if headquarter.nil?
-        new_headquarter         = Headquarter.new
-        new_headquarter.city    = city
-        new_headquarter.state   = state
-        new_headquarter.country = country
-        new_headquarter.save!
-        @company.headquarter_id = new_headquarter.id
-      else
-        @company.headquarter_id = headquarter.id
-      end
+        @new_stat                = CompanyStaffStat.new(user_id: @user.id)
+        @new_stat.num_eng        = params[:company][:num_eng]
+        @new_stat.num_female_eng = params[:company][:num_female_eng]
 
-      if @company.save
-        @user.company_id = @company.id
-        @user.save!
-        flash[:notice] = "Thanks for your contribution!"
-        redirect_to user_path(current_user.id)
-      else
-        # TODO: be more specific with the error here
-        flash[:notice] = "Sorry something went wrong with you submission"
-        redirect_to :back
-      end
-    end
+        city    = params[:company][:headquarter][:city]
+        state   = params[:company][:headquarter][:state]
+        country = params[:company][:headquarter][:country]
+        # what if there is only country or only country and state?
+        headquarter = Headquarter.where(city: city, state: state, country: country).first
+
+        if headquarter.nil?
+          new_headquarter         = Headquarter.new
+          new_headquarter.city    = city
+          new_headquarter.state   = state
+          new_headquarter.country = country
+          new_headquarter.save!
+          @company.headquarter_id = new_headquarter.id
+        else
+          @company.headquarter_id = headquarter.id
+        end
+
+        if @company.save
+          @user.company_id = @company.id
+          @user.save!
+          @new_stat.company_id = @company.id
+          @new_stat.save!
+          flash[:notice] = "Thanks for your contribution!"
+          redirect_to user_path(current_user.id)
+        else
+          # TODO: be more specific with the error here
+          flash[:notice] = "Sorry something went wrong with you submission"
+          redirect_to :back
+        end # end company.save
+      end # end AR transaction
+    end # end if/else
+
   end
 
   def charts
