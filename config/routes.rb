@@ -3,11 +3,11 @@ Rails.application.routes.draw do
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-  root 'users#new'
+  root 'companies#index'
   get '/auth/github/callback' => 'sessions#create'
   delete 'logout' => 'sessions#destroy', :as => :logout
 
-  resources :companies, only: [:new, :create] do
+  resources :companies, only: [:index, :new, :create] do
     collection do
       get '/stats', to: 'companies#charts'
       get '/:country_code/states', to: 'companies#states'
@@ -15,7 +15,11 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :users, only: [:show, :update] do
+  resources :users, only: [:new, :update] do
+    collection do
+      post '/new', to: 'users#update'
+      get '/profile', to: 'users#show'
+    end
   end
 
   # Example of regular route:
