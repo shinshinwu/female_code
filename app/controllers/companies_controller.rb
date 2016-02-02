@@ -1,3 +1,6 @@
+require 'uri'
+include SanitizeUrl
+
 class CompaniesController < ApplicationController
 
   def index
@@ -40,7 +43,6 @@ class CompaniesController < ApplicationController
   def create
     # TODO: need to think about how to standardize and sanitize the company url and name input
     # redirect user from this page if they are not signed in
-    # binding.pry
     @user    = current_user
     @company = Company.where(url: params[:company][:url]).first || Company.new
     @num_eng = params[:company][:company_staff_stat][:num_eng]
@@ -55,9 +57,17 @@ class CompaniesController < ApplicationController
         num_eng: num_eng
       )
     else
+      sanitized_url             = sanitize_url(params[:company][:url].downcase.strip)
+
+      if sanitized_url.is_valid_url?
+        parsed_url = URI.parse(sanitized_url)
+      else
+        parsed_url = URI.parse("http://" + sanitized_url)
+      end
+
       ActiveRecord::Base.transaction do
         @company.name           = params[:company][:name]
-        @company.url            = params[:company][:url]
+        @company.url            = parsed_url.host.scan(/^(www.)/).present? ? parsed_url.host : ("www." + parsed_url.host)
         @company.is_public      = params[:company][:is_public] == "true"
         @company.company_size_tier_id = params[:company][:company_size_tier_id]
 
