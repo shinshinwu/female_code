@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160131201828) do
+ActiveRecord::Schema.define(version: 20160202231556) do
 
   create_table "companies", force: :cascade do |t|
     t.string   "name",                 limit: 255, null: false
@@ -26,7 +26,9 @@ ActiveRecord::Schema.define(version: 20160131201828) do
   add_index "companies", ["name"], name: "index_companies_on_name", using: :btree
 
   create_table "company_size_tiers", force: :cascade do |t|
-    t.string "range", limit: 255, null: false
+    t.string  "range", limit: 255, null: false
+    t.integer "low",   limit: 4
+    t.integer "high",  limit: 4
   end
 
   create_table "company_staff_stats", force: :cascade do |t|

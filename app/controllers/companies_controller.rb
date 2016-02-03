@@ -50,40 +50,61 @@ class CompaniesController < ApplicationController
     if sanitized_url.is_valid_url?
       parsed_url  = URI.parse(sanitized_url)
     else
-      parsed_url  = URI.parse("http://" + sanitized_url)
+      flash[:error] = "Please enter a valid URL"
+      redirect_to :back and return
     end
 
-    host_name     = parsed_url.host.scan(/^(www.)/).present? ? parsed_url.host : ("www." + parsed_url.host)
+    host_name           = parsed_url.host.scan(/^(www.)/).present? ? parsed_url.host : ("www." + parsed_url.host)
 
-    @company = Company.where(url: host_name).first || Company.new
-    @num_eng = params[:company][:company_staff_stat][:num_eng]
-    @num_female_eng = params[:company][:company_staff_stat][:num_female_eng]
+    @company            = Company.where(url: host_name).first || Company.new
+    @num_eng            = params[:company][:company_staff_stat][:num_eng].to_i
+    @num_female_eng = params[:company][:company_staff_stat][:num_female_eng].to_i
+    @company_size_tier  = CompanySizeTier.find(params[:company][:company_size_tier_id].to_i)
+
+    if !(@company_size_tier.low..@company_size_tier.high).include?(@num_eng)
+      flash[:error] = "Please choose a valid company size tier value"
+      redirect_to :back and return
+    elsif @num_female_eng > @num_eng
+      flash[:error] = "Please enter a valid engineer stats value"
+      redirect_to :back and return
+    end
 
     # TODO: if found a match, what should it do?
     if @company.persisted?
-      CompanyStaffStat.create(
-        company_id: @company.id,
-        user_id: @user.id,
-        num_female_eng: num_female_eng,
-        num_eng: num_eng
+      @new_stat = CompanyStaffStat.new(
+        company_id:     @company.id,
+        user_id:        @user.id,
+        num_female_eng: @num_female_eng,
+        num_eng:        @num_eng
       )
+
+      if @new_stat.save
+        @new_stat.company_id = @company.id
+        @new_stat.save!
+        flash[:notice] = "Thanks for your contribution!"
+        render 'users/show'
+      else
+        # TODO: be more specific with the error here
+        flash[:notice] = "Sorry something went wrong with you submission"
+        redirect_to :back
+      end
     else
       ActiveRecord::Base.transaction do
         @company.name           = params[:company][:name].titleize
         @company.url            = host_name
         @company.is_public      = params[:company][:is_public] == "true"
-        @company.company_size_tier_id = params[:company][:company_size_tier_id]
+        @company.company_size_tier_id = @company_size_tier.id
 
         @new_stat                = CompanyStaffStat.new(
-          user_id: @user.id,
-          num_female_eng: num_female_eng,
-          num_eng: num_eng
+          user_id:        @user.id,
+          num_female_eng: @num_female_eng,
+          num_eng:        @num_eng
         )
 
         city    = params[:company][:headquarter][:city]
         state   = params[:company][:headquarter][:state]
         country = params[:company][:headquarter][:country]
-        # what if there is only country or only country and state?
+
         headquarter = Headquarter.where(city: city, state: state, country: country).first
 
         if headquarter.nil?
@@ -98,12 +119,10 @@ class CompaniesController < ApplicationController
         end
 
         if @company.save
-          @user.company_id = @company.id
-          @user.save!
           @new_stat.company_id = @company.id
           @new_stat.save!
           flash[:notice] = "Thanks for your contribution!"
-          redirect_to user_path(current_user.id)
+          render 'users/show'
         else
           # TODO: be more specific with the error here
           flash[:notice] = "Sorry something went wrong with you submission"

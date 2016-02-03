@@ -9,17 +9,17 @@
           = f.label :url, 'Company URL'
           .pure-u-23-24
             http://
-            = f.text_field :url, :placeholder => 'google.com'
+            = f.text_field :url, :placeholder => 'google.com', :required => true
 
         .pure-u-1.pure-u-md-1-3
           = f.label :name, "Company Name"
           .pure-u-23-24
-            = f.text_field :name, :placeholder => 'Google'
+            = f.text_field :name, :placeholder => 'Google', :required => true
 
         .pure-u-1.pure-u-md-1-3
           = f.label :is_public, "Public/Private Company?"
           .pure-u-23-24
-            = f.select :is_public, options_for_select([['Public', 'true'], ['Private', 'false']])
+            = f.select :is_public, options_for_select([['Public', 'true'], ['Private', 'false']]), :required => true
 
         .pure-u-1.pure-u-md-3-3
           %legend The Location
@@ -27,7 +27,7 @@
         .pure-u-1.pure-u-md-3-3
           %label{:for => "country"} Country
           .pure-u-23-24
-            = select_tag "company[headquarter][country]", options_from_collection_for_select(@countries, 'last', 'first'), prompt: "Select Country"
+            = select_tag "company[headquarter][country]", options_from_collection_for_select(@countries, 'last', 'first'), prompt: "Select Country", :required => true
 
         .pure-u-1.pure-u-md-3-3#headquarter-state
           %label{:for => "state"} State
@@ -45,19 +45,19 @@
         .pure-u-1.pure-u-md-1-3
           .pure-u-23-24
             = f.label :company_size_tier_id, 'What is your company size?'
-            = f.select :company_size_tier_id, @company_size_tier.collect {|tier| [tier.range, tier.id]}
+            = f.select :company_size_tier_id, @company_size_tier.collect {|tier| [tier.range, tier.id]}, :required => true
           %span employees
 
         .pure-u-1.pure-u-md-1-3
           .pure-u-23-24
             %label{:for => "state"} 'How many software engineers does your company have?'
             %p Link or brief description of job title here
-            = number_field_tag "company[company_staff_stat][num_eng]", :min => 1, :max => 100000
+            = number_field_tag "company[company_staff_stat][num_eng]", nil, :min => 1, :max => 100000, :required => true
 
         .pure-u-1.pure-u-md-1-3
           .pure-u-23-24
             %label{:for => "state"} 'How many of those engineers are female?'
-            = number_field_tag "company[company_staff_stat][num_female_eng]", :min => 0, :max => 100000
+            = number_field_tag "company[company_staff_stat][num_female_eng]", nil, :min => 0, :max => 100000, :required => true
 
           / ask if they are engineers and if they are, what are their gender, language and salary if they wish to report
         .pure-u-1.pure-u-md-1-3
@@ -87,6 +87,7 @@
             optionsValues += '<option value="' + code + '">' + name + '</option>'
           });
           $('#company_headquarter_state').html(optionsValues);
+          $("#company_headquarter_state").attr('required','required');
           $('#company_headquarter_city').html('<option selected>Select Cities</option>');
           $('#headquarter-state').show();
         };
@@ -105,6 +106,7 @@
             optionsValues += '<option value="' + name + '">' + name + '</option>'
           });
           $('#company_headquarter_city').html(optionsValues);
+          $("#company_headquarter_city").attr('required','required');
           $('#headquarter-city').show();
         };
       });

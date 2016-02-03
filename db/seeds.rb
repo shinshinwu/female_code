@@ -76,14 +76,14 @@ headquarters = Headquarter.create([
 ])
 
 tiers = CompanySizeTier.create([
-  { range: '2-10' },
-  { range: '11-50' },
-  { range: '51-200' },
-  { range: '201-500' },
-  { range: '501-1000' },
-  { range: '1001-5000' },
-  { range: '5001-10000' },
-  { range: '10000+'}
+  { range: '2-10' , low: 2, high: 10 },
+  { range: '11-50' , low: 11, high: 50 },
+  { range: '51-200' , low: 51, high: 200 },
+  { range: '201-500' , low: 201, high: 500 },
+  { range: '501-1,000' , low: 501, high: 1000 },
+  { range: '1,001-5,000' , low: 1001, high: 5000 },
+  { range: '5,001-10,000' , low: 5001, high: 10000 },
+  { range: '10,000+', low: 10000, high: 10000000000 }
 ])
 
 companies = Company.create([

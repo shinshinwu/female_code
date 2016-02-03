@@ -4,6 +4,6 @@ class AddIsApprovedToThoughts < ActiveRecord::Migration
   end
 
   def down
-    remove_colun :thoughts, :is_approved
+    remove_column :thoughts, :is_approved
   end
 end
