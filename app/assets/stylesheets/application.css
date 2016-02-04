@@ -173,25 +173,40 @@ a.pure-button-primary {
 
 .splash {
     /* absolute center .splash within .splash-container */
-    width:                              80%;
+    width:                              90%;
     height:                             50%;
     margin:                             auto;
     position:                           absolute;
-    top:                                100px; left: 0; bottom: 0; right: 0;
+    top:                                100px;
+    left:                               0;
+    bottom:                             0;
+    right:                              0;
     text-align:                         center;
     text-transform:                     uppercase;
 }
 
-/* This is the main heading that appears on the blue section */
-.splash-head {
-    font-size:                          20px;
-    font-weight:                        bold;
-    color:                              white;
-    border:                             3px solid white;
-    padding:                            1em 1.6em;
-    font-weight:                        100;
-    border-radius:                      5px;
-    line-height:                        1em;
+.splash ul#nav-section {
+    list-style:                         none;
+    text-transform:                     none;
+    font-weight:                        200;
+    text-align:                         left;
+    margin-top:                         -30px;
+}
+
+.splash ul li {
+    display:                            block;
+    padding:                            15px 0;
+    border-bottom:                      1px solid #DDDDDD;
+}
+
+.splash ul li a {
+    text-decoration:                    none;
+    color:                              #65657C;
+}
+
+.splash ul li a:hover,
+.splash ul li a:focus {
+    color:                              black;
 }
 
 /* This is the subheading that appears on the blue section */
@@ -321,14 +336,9 @@ a.pure-button-primary {
     /* We decrease the width of the .splash, since we have more width
     to work with */
     .splash {
-        width:                          50%;
+        width:                          90%;
         height:                         50%;
     }
-
-    .splash-head {
-        font-size:                      250%;
-    }
-
 
     /* We remove the border-separator assigned to .l-box-lrg */
     .l-box-lrg {

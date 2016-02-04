@@ -2,11 +2,28 @@
 
 .splash-container
   .splash
-    #pie-chart
-    %p.splash-subhead
-      How many female software engineers are in your company?
-    %p
-      %a.pure-button.pure-button-primary{:href => "companies/new"} Add Stats
+    .pure-g
+      .l-box.pure-u-1.pure-u-md-1-3.pure-u-lg-1-4
+        %ul#nav-section
+          %li
+            %a{ href: "#"}
+              Female vs. Male Software Engineer Ratio
+          %li
+            %a{ href: "#"}
+              Female Software Engineer Around the World
+          %li
+            %a{ href: "#"}
+              Startup Roudup: Who have the most female engineers?
+          %li
+            %a{ href: "#"}
+              Download the stats
+      .l-box.pure-u-1.pure-u-md-2-3.pure-u-lg-3-4
+        #pie-chart
+      .l-box.pure-u-1
+        %p.splash-subhead
+          How many female software engineers are in your company?
+        %p
+          %a.pure-button.pure-button-primary{:href => "companies/new"} Add Stats
 .content-wrapper
   .content
     %h2.content-head.is-center As a female in Software Engineering, I feel...
@@ -16,15 +33,19 @@
           %blockquote.quotes
             = "... " + thought.thoughts
     %p
-      .l-box.pure-u-1.pure-u-md-1-2.pure-u-lg-2-5
-      .l-box.pure-u-1.pure-u-md-1-2.pure-u-lg-1-5
+      .l-box.pure-u-1.pure-u-md-2-2.pure-u-lg-2-5
+      .l-box.pure-u-1.pure-u-md-2-2.pure-u-lg-1-5
         %a.pure-button.pure-button-primary{:href => "users/new"} What's your thought?
   .content
     %h2.content-head.is-center Help to change the face of Software Engineering by share the cause
     .pure-g
       .l-box-lrg.pure-u-1.pure-u-md-1-5
       .l-box-lrg.pure-u-1.pure-u-md-3-5
-        %p Place social media share links here
+        .share-links
+          / need to update below code with font awesome
+          %a.twitter{"data-icon" => "&#xea92;", href: "https://twitter.com/cakeisnotreal"}
+          %a.facebook{"data-icon" => "&#xeac8;", href:"http://www.linkedin.com/pub/anna-wu/29/618/99b/"}
+          %a.medium{"data-icon" => "&#xf23a;", href:"http://medium.com"}
   .footer.l-box.is-center
     %span Made with <3 by
     %a{ href: "http://shinshinwu.github.io", title: "Anna Wu", target: "_blank" }
