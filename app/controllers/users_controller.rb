@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+  before_filter :authenticate_user!
 
   def new
     @user = current_user
@@ -12,11 +13,15 @@ class UsersController < ApplicationController
   end
 
   def update
-    @user = current_user
-    @user.display_name = params[:user][:display_name]
-    @user.programming_language_id = params[:user][:programming_language_id]
-    @user.salary = params[:user][:salary].to_f
-    thought = Thought.new(user_id: @user.id, thoughts: params[:user][:thoughts])
+    @user                 = current_user
+    @display_name         = params[:user][:display_name]
+    @programming_language = ProgrammingLanguage.where(id: params[:user][:programming_language_id].to_i).first
+    @salary               = params[:user][:salary]
+
+    @user.display_name    = @display_name if @display_name
+    @user.programming_language_id = @programming_language.id if @programming_language
+    @user.salary          = @salary.to_f if @salary
+    thought               = Thought.new(user_id: @user.id, thoughts: params[:user][:thoughts])
 
     if @user.save
         thought.save!

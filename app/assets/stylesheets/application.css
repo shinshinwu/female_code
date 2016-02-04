@@ -89,7 +89,8 @@ label {
 }
 
 .center {
-    padding:                            0 20%;
+    display:                            block;
+    margin:                             0 auto;
 }
 
 /*
@@ -219,6 +220,31 @@ a.pure-button-primary {
 
 }
 
+.content-wrapper .quotes {
+    display:                            block;
+    text-align:                         center;
+    vertical-align:                     middle;
+    background-color:                   #5C5C61;
+    padding:                            2em 1em;
+    color:                              #F7F7F7;
+    font-weight:                        200;
+    position:                           relative;
+    margin:                             0;
+}
+
+.content-wrapper .quotes:after {
+    content:                            '';
+    position:                           absolute;
+    border-style:                       solid;
+    border-width:                       21px 15px 0;
+    border-color:                       #5C5C61 transparent;
+    display:                            block;
+    width:                              0;
+    z-index:                            1;
+    bottom:                             -21px;
+    left:                               80%;
+}
+
 /* This is the class used for the main content headers (<h2>) */
 .content-head {
     font-weight:                        400;
@@ -249,6 +275,17 @@ a.pure-button-primary {
 /* This is the class used for the footer */
 .footer {
     background:                         #111;
+    color:                              #F7F7F7;
+    font-weight:                        200;
+}
+
+.footer a {
+    text-decoration:                    none;
+    color:                              #00AB6B;
+}
+
+.footer a:hover {
+    text-decoration:                    underline;
 }
 
 /*

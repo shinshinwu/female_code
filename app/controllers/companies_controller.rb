@@ -2,8 +2,10 @@ require 'uri'
 include SanitizeUrl
 
 class CompaniesController < ApplicationController
+  before_filter :authenticate_user!, :only => [:new, :states, :cities]
 
   def index
+    @thoughts                = Thought.approved
     @company_stats           = CompanyStaffStat.approved
     # pie chart
     total_num_females        = @company_stats.sum(:num_female_eng)
