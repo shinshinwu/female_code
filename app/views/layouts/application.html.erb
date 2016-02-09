@@ -14,9 +14,11 @@
   <!--<![endif]-->
   <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= yield :stylesheets %>
   <%= include_gon %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <script type="text/javascript" src="https://code.highcharts.com/highcharts.js"></script>
+  <script src="https://code.highcharts.com/modules/data.js"></script>
   <script type="text/javascript" src="https://code.highcharts.com/modules/exporting.js"></script>
   <%= csrf_meta_tag %>
 </head>
@@ -41,7 +43,10 @@
     <% flash.each do |key, value| %>
       <div class="alert alert-<%= key %>"><%= value %></div>
     <% end %>
+
+    <%= yield %>
   </div>
-  <%= yield %>
+
+  <%= yield :javascripts %>
 </body>
 </html>

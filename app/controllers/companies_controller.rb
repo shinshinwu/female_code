@@ -142,4 +142,22 @@ class CompaniesController < ApplicationController
     gon.female_eng_nums = @companies.pluck(:num_female_eng)
     gon.male_eng_nums   = @companies.map {|company| company.num_eng - company.num_female_eng }
   end
+
+  def map
+    # select the top 10 cities for startup hqs in terms of popularity in order of hq id, occurance and city
+
+    # instead of a map, we can show a stacked bar chart with top cities and their count of occurance versus their female engineer percentage
+    @top_hq_cities      = ActiveRecord::Base.connection.execute("SELECT c.headquarter_id, COUNT(c.headquarter_id), hq.city, hq.state, hq.country FROM companies as c JOIN headquarters as hq WHERE c.headquarter_id = hq.id GROUP BY headquarter_id ORDER BY COUNT(headquarter_id) DESC LIMIT 10;")
+
+    count = []
+    hq_ids = []
+    @top_hq_cities.each do |sql|
+      hq_ids << sql.first
+      count << sql[1]
+    end
+    gon.count = count
+    hqs = Headquarter.where(id: hq_ids)
+    gon.hq_female_ratio = hqs.map {|hq| hq.average_female_ratio*100}
+    gon.hq_names = hqs.map(&:location_string)
+  end
 end
