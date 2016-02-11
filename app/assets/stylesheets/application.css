@@ -10,9 +10,6 @@
  * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
  * file per style scope.
  *
- *= require_tree .
- *= require_self
-
  //= require pure-min
  //= require grids-responsive-min
  //= require font-awesome
@@ -109,8 +106,9 @@ label {
     border-radius:                      5px;
 }
 
+.pure-button-primary,
 a.pure-button-primary {
-    background:                         #00AB6B;
+    background-color:                   #00AB6B;
     color:                              white;
     border-radius:                      5px;
     font-size:                          120%;
