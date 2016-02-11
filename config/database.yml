@@ -49,6 +49,8 @@ test:
 #
 production:
   <<: *default
-  database: female_code_production
-  username: female_code
-  password: <%= ENV['FEMALE_CODE_DATABASE_PASSWORD'] %>
+  database: fed_up_production
+  username: <%= ENV['JAWSDB_USER'] %>
+  password: <%= ENV['JAWSDB_PW'] %>
+  url: <%= ENV['JAWSDB_URL'] %>
+  port: 3306
