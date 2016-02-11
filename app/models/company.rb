@@ -8,6 +8,10 @@ class Company < ActiveRecord::Base
     company_staff_stats.approved.average(:num_female_eng).to_i
   end
 
+  def number_of_male_eng
+    number_of_eng - number_of_female_eng
+  end
+
   def number_of_eng
     company_staff_stats.approved.average(:num_eng).to_i
   end
