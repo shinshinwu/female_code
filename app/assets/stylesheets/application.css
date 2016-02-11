@@ -12,7 +12,12 @@
  *
  *= require_tree .
  *= require_self
+
+ //= require pure-min
+ //= require grids-responsive-min
+ //= require font-awesome
  */
+
 
 
 * {
