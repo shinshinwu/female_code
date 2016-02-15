@@ -7,7 +7,8 @@ class CompaniesController < ApplicationController
   def index
     @thoughts                = Thought.approved
     @company_stats           = CompanyStaffStat.approved
-    # pie chart
+
+    # RATIO PIE CHART
     total_num_females        = @company_stats.sum(:num_female_eng)
     total_num_engineers      = @company_stats.sum(:num_eng)
     total_num_males          = total_num_engineers - total_num_females
@@ -16,6 +17,28 @@ class CompaniesController < ApplicationController
     gon.female_engineers_num = total_num_females.to_s.reverse.gsub(/(\d{3})(?=\d)/, '\\1,').reverse
     gon.male_percentage      = 1 - female_percentage
     gon.male_engineers_num   = total_num_males.to_s.reverse.gsub(/(\d{3})(?=\d)/, '\\1,').reverse
+
+    # CITY DISTRIBUTION CHART
+    # select the top 10 cities for startup hqs in terms of popularity in order of hq id, occurance and city
+
+    # instead of a map, we can show a stacked bar chart with top cities and their count of occurance versus their female engineer percentage
+    @top_hq_cities      = ActiveRecord::Base.connection.execute("SELECT c.headquarter_id, COUNT(c.headquarter_id), hq.city, hq.state, hq.country FROM companies as c JOIN headquarters as hq WHERE c.headquarter_id = hq.id GROUP BY headquarter_id ORDER BY COUNT(headquarter_id) DESC LIMIT 10;")
+
+    count = []
+    hq_ids = []
+    @top_hq_cities.each do |sql|
+      hq_ids << sql.first
+      count << sql[1]
+    end
+    gon.count = count
+    hqs = Headquarter.where(id: hq_ids)
+    gon.hq_female_ratio = hqs.map {|hq| hq.average_female_ratio*100}
+    gon.hq_names = hqs.map(&:location_string)
+
+    # TOP 10 COMPANIES BAR CHART
+    @companies = Company.all.sort_by(&:female_ratio).last(10).reverse
+    gon.company_names   = @companies.map(&:name)
+    gon.female_ratio = @companies.map{ |c| c.female_ratio * 100}
   end
 
   def new
@@ -136,7 +159,7 @@ class CompaniesController < ApplicationController
   end
 
   def charts
-    @companies          = Company.all
+    @companies          = Company.approved.all
     # bar chart
     gon.company_names   = @companies.pluck(:name)
     gon.female_eng_nums = @companies.map {|company| company.number_of_female_eng}

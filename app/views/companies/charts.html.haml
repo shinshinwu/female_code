@@ -6,17 +6,6 @@
 
 :javascript
   $(function () {
-    $('#bar-chart-link').click(function(e){
-      e.preventDefault();
-      $('#bar-chart').show();
-      $('#pie-chart').hide();
-    })
-
-    $('#pie-chart-link').click(function(e){
-      e.preventDefault();
-      $('#pie-chart').show();
-      $('#bar-chart').hide();
-    })
 
     $('#bar-chart').highcharts({
       chart: {
