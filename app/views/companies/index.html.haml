@@ -9,11 +9,9 @@
             %a{ href: "#", id: "pie-chart-link"}
               Female vs. Male Software Engineer Ratio
           %li
-            %a{ href: "#", id: "city-chart-link"}
-              Female Software Engineer Around the World
+            = link_to("Female Software Engineer Around the World", {controller: "companies", action: "map"}, id: "city-chart-link")
           %li
-            %a{ href: "#", id: "company-chart-link"}
-              Startup Roudup: Who have the most female engineers?
+            = link_to("Startup Roudup: Who have the most female engineers?", {controller: "companies", action: "charts"}, id: "company-chart-link")
           %li
             %a{ href: "#", id: "download-link"}
               Download the stats
@@ -215,7 +213,7 @@
           borderWidth: 0,
           dataLabels: {
             enabled: true,
-            format: '{point.y:0f}%'
+            format: '{point.y:.0f}%'
           }
         }
       },

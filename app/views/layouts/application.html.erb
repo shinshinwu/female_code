@@ -20,7 +20,7 @@
     <div class="home-menu pure-menu pure-menu-horizontal pure-menu-fixed">
       <a class="pure-menu-heading" href="/">Female <i class="fa fa-code"></i> Code</a>
       <ul class="pure-menu-list">
-        <li class="pure-menu-item"><%= link_to "Home", root_path, :class => "pure-menu-link" %></li>
+        <li class="pure-menu-item"><%= link_to "Home", { controller: "companies", action: "index"}, class: "pure-menu-link" %></li>
         <% if logged_in? %>
           <li class="pure-menu-item">Welcome <%= current_user.name %></li>
           <li class="pure-menu-item"><%= link_to "Log out", logout_path, method: "delete", :class => "pure-menu-link" %></li>

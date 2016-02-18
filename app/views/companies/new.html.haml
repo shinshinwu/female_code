@@ -3,66 +3,96 @@
   = form_for @company, url: {action: "create"}, html:{class: 'form pure-form pure-form-stacked center'} do |f|
     %fieldset
       .pure-g
-        .pure-u-1.pure-u-md-3-3
+        .pure-u-1.pure-u-md-1-5
+        .pure-u-1.pure-u-md-3-5
           %legend The Basics
-        .pure-u-1.pure-u-md-1-3
-          = f.label :url, 'Company URL'
-          .pure-u-23-24
-            http://
-            = f.text_field :url, :placeholder => 'google.com', :required => true
+        .pure-u-1.pure-u-md-1-5
 
-        .pure-u-1.pure-u-md-1-3
+        .pure-u-1.pure-u-md-1-5
+        .pure-u-1.pure-u-md-3-5
+          = f.label :url, 'Company URL'
+          .pure-u-1
+            .pure-u-3-24.pure-u-md-2-24#http
+              http://
+            .pure-u-20-24.pure-u-md-21-24
+              = f.text_field :url, :placeholder => 'google.com', :required => true, id: 'url'
+        .pure-u-1.pure-u-md-1-5
+
+        .pure-u-1.pure-u-md-1-5
+        .pure-u-1.pure-u-md-2-5
           = f.label :name, "Company Name"
           .pure-u-23-24
             = f.text_field :name, :placeholder => 'Google', :required => true
-
-        .pure-u-1.pure-u-md-1-3
+        .pure-u-1.pure-u-md-2-5
           = f.label :is_public, "Public/Private Company?"
-          .pure-u-23-24
+          .pure-u-1
             = f.select :is_public, options_for_select([['Public', 'true'], ['Private', 'false']]), :required => true
 
-        .pure-u-1.pure-u-md-3-3
+        .pure-u-1.pure-u-md-1-5
+        .pure-u-1.pure-u-md-3-5
           %legend The Location
+        .pure-u-1.pure-u-md-1-5
 
-        .pure-u-1.pure-u-md-3-3
+        .pure-u-1.pure-u-md-1-5
+        .pure-u-1.pure-u-md-3-5
           %label{:for => "country"} Country
-          .pure-u-23-24
+          .pure-u-1
             = select_tag "company[headquarter][country]", options_from_collection_for_select(@countries, 'last', 'first'), prompt: "Select Country", :required => true
+        .pure-u-1.pure-u-md-1-5
 
-        .pure-u-1.pure-u-md-3-3#headquarter-state
-          %label{:for => "state"} State
-          .pure-u-23-24
-            = select_tag "company[headquarter][state]"
+        #headquarter-state
+          .pure-u-1.pure-u-md-1-5
+          .pure-u-1.pure-u-md-3-5
+            %label{:for => "state"} State
+            .pure-u-1
+              = select_tag "company[headquarter][state]"
+          .pure-u-1.pure-u-md-1-5
 
-        .pure-u-1.pure-u-md-3-3#headquarter-city
-          %label{:for => "state"} City
-          .pure-u-23-24
-            = select_tag "company[headquarter][city]"
+        #headquarter-city
+          .pure-u-1.pure-u-md-1-5
+          .pure-u-1.pure-u-md-3-5
+            %label{:for => "state"} City
+            .pure-u-1
+              = select_tag "company[headquarter][city]"
+          .pure-u-1.pure-u-md-1-5
 
-        .pure-u-1.pure-u-md-3-3
+        .pure-u-1.pure-u-md-1-5
+        .pure-u-1.pure-u-md-3-5
           %legend The Numbers
+        .pure-u-1.pure-u-md-1-5
 
-        .pure-u-1.pure-u-md-1-3
-          .pure-u-23-24
+        .pure-u-1.pure-u-md-1-5
+        .pure-u-1.pure-u-md-3-5
+          .pure-u-1.pure-u-md-7-24
             = f.label :company_size_tier_id, 'What is your company size?'
-            = f.select :company_size_tier_id, @company_size_tier.collect {|tier| [tier.range, tier.id]}, :required => true
-          %span employees
+            .pure-u-9-24.pure-u-md-14-24
+              = f.select :company_size_tier_id, @company_size_tier.collect {|tier| [tier.range, tier.id]}, :required => true
+            .pure-u-5-24.pure-u-md-3-24#employees
+              employees
+            .pure-u-4-24.pure-u-md-7-24
+          .pure-u-17-24
+        .pure-u-1.pure-u-md-1-5
 
-        .pure-u-1.pure-u-md-1-3
-          .pure-u-23-24
+        .pure-u-1.pure-u-md-1-5
+        .pure-u-1.pure-u-md-3-5
+          .pure-u-1
             %label{:for => "state"} 'How many software engineers does your company have?'
             %p Link or brief description of job title here
             = number_field_tag "company[company_staff_stat][num_eng]", nil, :min => 1, :max => 100000, :required => true
+        .pure-u-1.pure-u-md-1-5
 
-        .pure-u-1.pure-u-md-1-3
-          .pure-u-23-24
+        .pure-u-1.pure-u-md-1-5
+        .pure-u-1.pure-u-md-3-5
+          .pure-u-1
             %label{:for => "state"} 'How many of those engineers are female?'
             = number_field_tag "company[company_staff_stat][num_female_eng]", nil, :min => 0, :max => 100000, :required => true
+        .pure-u-1.pure-u-md-1-5
 
           / ask if they are engineers and if they are, what are their gender, language and salary if they wish to report
-        .pure-u-1.pure-u-md-1-3
-        .pure-u-1.pure-u-md-1-3
+        .pure-u-1.pure-u-md-2-5
+        .pure-u-1.pure-u-md-1-5
           = f.submit "Submit", :class => 'button pure-button'
+        .pure-u-1.pure-u-md-2-5
 
 :javascript
   $(function () {

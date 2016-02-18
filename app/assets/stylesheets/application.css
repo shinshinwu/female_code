@@ -16,7 +16,6 @@
  */
 
 
-
 * {
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
@@ -76,6 +75,15 @@ label {
     margin:                             1em 0 0;
     font-weight:                        bold;
     font-size:                          100%;
+}
+
+.pure-form #http {
+    text-align:                         right;
+    margin-top:                         10px;
+}
+
+.pure-form #employees {
+    margin-top:                         8px;
 }
 
 .pure-form legend {
@@ -326,6 +334,10 @@ a.pure-button-primary {
 @media (max-width: 48em) {
     .splash ul#nav-section {
         margin-top:                     -180px;
+    }
+
+    .pure-form {
+        padding:                        10px;
     }
 }
 

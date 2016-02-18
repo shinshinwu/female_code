@@ -159,11 +159,11 @@ class CompaniesController < ApplicationController
   end
 
   def charts
-    @companies          = Company.approved.all
-    # bar chart
+    @companies = Company.all
+
     gon.company_names   = @companies.pluck(:name)
-    gon.female_eng_nums = @companies.map {|company| company.number_of_female_eng}
-    gon.male_eng_nums   = @companies.map {|company| company.number_of_male_eng }
+    gon.female_eng_nums = @companies.map(&:number_of_female_eng)
+    gon.male_eng_nums  = @companies.map(&:number_of_male_eng)
   end
 
   def map

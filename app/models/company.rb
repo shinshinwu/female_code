@@ -19,4 +19,8 @@ class Company < ActiveRecord::Base
   def female_ratio
     number_of_female_eng / number_of_eng.to_f
   end
+
+  def male_ratio
+    number_of_male_eng / number_of_eng.to_f
+  end
 end
