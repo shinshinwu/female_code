@@ -4,26 +4,29 @@
   = form_for @user, url: {action: "update"}, html:{class: 'form pure-form pure-form-stacked center'} do |f|
     %fieldset
       .pure-g
-        .pure-u-1.pure-u-md-1-3
+        .pure-u-1.pure-u-md-1-5
+        .pure-u-1.pure-u-md-1-5
           = f.label :display_name, "Your Name"
-          .pure-u-23-24
+          .pure-u-1.pure-u-md-23-24
             = f.text_field :display_name, :value => @user.name
         / need to ask if they are developer first and if they are, if they are female
-        .pure-u-1.pure-u-md-1-3
+        .pure-u-1.pure-u-md-1-5
           = f.label :programming_language_id, "What's your preferred weapon of destruction?"
-          .pure-u-23-24
+          .pure-u-1.pure-u-md-23-24
             = f.select :programming_language_id, options_from_collection_for_select(ProgrammingLanguage.all, :id, :language), :include_blank => true, :required =>  true
 
-        .pure-u-1.pure-u-md-1-3
-          .pure-u-23-24
+        .pure-u-1.pure-u-md-1-5
+          .pure-u-1.pure-u-md-23-24
             = f.label :salary, 'What is your annual salary?'
             = f.number_field :salary, :min => 1000, :max => 10000000
+        .pure-u-1.pure-u-md-1-5
 
-        .pure-u-1.pure-u-md-3-3
+        .pure-u-1.pure-u-md-1-5
+        .pure-u-1.pure-u-md-3-5
           %label{:for => "thoughts"} "Being a female software engineer, I feel ..."
-          .pure-u-23-24
-            = text_area_tag "[user]thoughts", nil, :placeholder => "... like I need to be careful with how I act all the time...", :row => '4', :cols => '50'
+          = text_area_tag "[user]thoughts", nil, :placeholder => "... like I need to be careful with how I act all the time...", :row => '4'
+        .pure-u-1.pure-u-md-1-5
 
-        .pure-u-1.pure-u-md-1-3
-        .pure-u-1.pure-u-md-1-3
+        .pure-u-1.pure-u-md-2-5
+        .pure-u-1.pure-u-md-1-5
           = f.submit "Submit", :class => 'button pure-button'

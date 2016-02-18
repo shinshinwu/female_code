@@ -90,6 +90,14 @@ label {
     margin:                             1em 0;
 }
 
+.pure-form textarea {
+    width:                              100%;
+}
+
+.pure-form .pure-button {
+    margin-top:                         25px;
+}
+
 .pure-form input[type] {
     border:                             2px solid #ddd;
     box-shadow:                         none;
