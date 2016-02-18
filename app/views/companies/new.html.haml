@@ -40,15 +40,15 @@
             = select_tag "company[headquarter][country]", options_from_collection_for_select(@countries, 'last', 'first'), prompt: "Select Country", :required => true
         .pure-u-1.pure-u-md-1-5
 
-        #headquarter-state
-          .pure-u-1.pure-u-md-1-5
-          .pure-u-1.pure-u-md-3-5
+        .pure-u-1#headquarter-state
+          .pure-u-md-1-5
+          .pure-u-md-3-5
             %label{:for => "state"} State
             .pure-u-1
               = select_tag "company[headquarter][state]"
-          .pure-u-1.pure-u-md-1-5
+          .pure-u-md-1-5
 
-        #headquarter-city
+        .pure-u-1#headquarter-city
           .pure-u-1.pure-u-md-1-5
           .pure-u-1.pure-u-md-3-5
             %label{:for => "state"} City
