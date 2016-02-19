@@ -16,14 +16,15 @@
             %a{ href: "#", id: "download-link"}
               Download the stats
       .l-box.pure-u-1.pure-u-md-2-3.pure-u-lg-3-4
-        #pie-chart
-        #city-chart
-        #company-chart
+        #pie-chart{style: "width:100%;"}
+        #city-chart{style: "width:80%;"}
+        #company-chart{style: "width:80%;"}
       .l-box.pure-u-1
         %p.splash-subhead
-          How many female software engineers are in your company?
+          = link_to("Join the revolution", about_path)
+          and help to change the face of software engineering
         %p
-          %a.pure-button.pure-button-primary{:href => "companies/new"} Add Stats
+          %a.pure-button.pure-button-primary{:href => "companies/new"} Contribute Your Stats
 .content-wrapper
   .content
     %h2.content-head.is-center As a female in Software Engineering, I feel...
@@ -85,6 +86,9 @@
         exporting: { enabled: false },
         title: {
             text: 'Female vs. Male Software Engineer Ratio'
+        },
+        subtitle: {
+        text: 'Based on ' + gon.stats_count + ' unaltered user submitted stats'
         },
         tooltip: {
             pointFormat: 'Percentage: <b>{point.percentage:.1f}%</b>'

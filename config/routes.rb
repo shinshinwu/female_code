@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   root 'companies#index'
   get '/auth/github/callback' => 'sessions#create'
   delete 'logout' => 'sessions#destroy', :as => :logout
+  get 'about' => 'abouts#index'
 
   resources :companies, only: [:index, :new, :create] do
     collection do

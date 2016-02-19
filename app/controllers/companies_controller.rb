@@ -12,7 +12,8 @@ class CompaniesController < ApplicationController
     total_num_females        = @company_stats.sum(:num_female_eng)
     total_num_engineers      = @company_stats.sum(:num_eng)
     total_num_males          = total_num_engineers - total_num_females
-    female_percentage        =  total_num_females / total_num_engineers.to_f
+    female_percentage        = total_num_females / total_num_engineers.to_f
+    gon.stats_count          = @company_stats.size
     gon.female_percentage    = female_percentage
     gon.female_engineers_num = total_num_females.to_s.reverse.gsub(/(\d{3})(?=\d)/, '\\1,').reverse
     gon.male_percentage      = 1 - female_percentage
