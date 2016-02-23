@@ -18,9 +18,9 @@
 
   <header class="header">
     <div class="home-menu pure-menu pure-menu-horizontal pure-menu-fixed">
-      <a class="pure-menu-heading" href="/">FED <i class="fa fa-code"></i> UP <span id="subtitle" style="text-transform:none;font-weight:300;font-size:13px;color:#8B8C8D">Female Engineering Disparity</span></a>
+      <a class="pure-menu-heading" href="/?pageRefresh=1">FED <i class="fa fa-code"></i> UP <span id="subtitle" style="text-transform:none;font-weight:300;font-size:13px;color:#8B8C8D">Female Engineering Disparity</span></a>
       <ul class="pure-menu-list">
-        <li class="pure-menu-item"><%= link_to "Home", { controller: "companies", action: "index"}, class: "pure-menu-link" %></li>
+        <li class="pure-menu-item"><%= link_to "Home", { controller: "companies", action: "index", pageRefresh: "1"}, class: "pure-menu-link" %></li>
         <li class="pure-menu-item"><%= link_to "About", about_path, class: "pure-menu-link" %></li>
         <% if logged_in? %>
           <li class="pure-menu-item">Welcome <%= current_user.name %></li>
@@ -41,5 +41,13 @@
   </div>
 
   <%= yield :javascripts %>
+  <script>
+    $(function(){
+      var pageRefresh = document.URL.split('?')[1];
+      if (pageRefresh === "pageRefresh=1"){
+        location = location.pathname;
+      };
+    });
+  </script>
 </body>
 </html>

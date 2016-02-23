@@ -12,9 +12,9 @@
         .pure-u-1.pure-u-md-3-5
           = f.label :url, 'Company URL'
           .pure-u-1
-            .pure-u-3-24.pure-u-md-2-24#http
+            .pure-u-1-24.pure-u-md-1-24#http
               http://
-            .pure-u-20-24.pure-u-md-21-24
+            .pure-u-20-24.pure-u-md-22-24
               = f.text_field :url, :placeholder => 'google.com', :required => true, id: 'url'
         .pure-u-1.pure-u-md-1-5
 
@@ -76,7 +76,7 @@
         .pure-u-1.pure-u-md-1-5
         .pure-u-1.pure-u-md-3-5
           .pure-u-1
-            %label{:for => "state"} 'How many software engineers does your company have?'
+            %label{:for => "state"} How many software engineers does your company have?
             %p Link or brief description of job title here
             = number_field_tag "company[company_staff_stat][num_eng]", nil, :min => 1, :max => 100000, :required => true
         .pure-u-1.pure-u-md-1-5
@@ -84,7 +84,7 @@
         .pure-u-1.pure-u-md-1-5
         .pure-u-1.pure-u-md-3-5
           .pure-u-1
-            %label{:for => "state"} 'How many of those engineers are female?'
+            %label{:for => "state"} How many of those engineers are female?
             = number_field_tag "company[company_staff_stat][num_female_eng]", nil, :min => 0, :max => 100000, :required => true
         .pure-u-1.pure-u-md-1-5
 

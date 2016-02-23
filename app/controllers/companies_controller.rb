@@ -87,7 +87,7 @@ class CompaniesController < ApplicationController
     @num_female_eng = params[:company][:company_staff_stat][:num_female_eng].to_i
     @company_size_tier  = CompanySizeTier.find(params[:company][:company_size_tier_id].to_i)
 
-    if !(@company_size_tier.low..@company_size_tier.high).include?(@num_eng)
+    if !(0..@company_size_tier.high).include?(@num_eng)
       flash[:error] = "Please choose a valid company size tier value"
       redirect_to :back and return
     elsif @num_female_eng > @num_eng
@@ -167,7 +167,7 @@ class CompaniesController < ApplicationController
     gon.male_eng_nums  = @companies.map(&:number_of_male_eng)
   end
 
-  def map
+  def cities
     # select the top 10 cities for startup hqs in terms of popularity in order of hq id, occurance and city
 
     # instead of a map, we can show a stacked bar chart with top cities and their count of occurance versus their female engineer percentage

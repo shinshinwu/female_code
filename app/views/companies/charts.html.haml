@@ -8,35 +8,48 @@
 
     $('#bar-chart').highcharts({
       chart: {
-          type: 'bar'
+        type: 'bar'
       },
       credits: { enabled: false },
       title: {
-          text: 'Female Engineers Percentage by Companies'
+        text: 'Female Engineers Percentage by Companies',
+        x: 120
       },
       xAxis: {
-          categories: gon.company_names
+        categories: gon.company_names
       },
-      yAxis: {
-          min: 0,
-          title: {
-              text: 'Female Engineers Percentage'
-          }
+      yAxis: [{
+        min: 0,
+        title: {
+          text: 'Female Engineers Percentage'
+        },
+        opposite: true
       },
+      {
+        min: 0,
+        labels: {
+          format: '{value} %'
+        },
+        title: {
+          text: 'Female Engineers Percentage'
+        }
+      }],
       legend: {
-          reversed: true
+        reversed: true,
+        align: 'center',
+        x: 150
       },
       plotOptions: {
-          series: {
-              stacking: 'percent'
-          }
+        series: {
+            stacking: 'percent'
+        }
       },
       series: [{
-          name: 'Male Engineers',
-          data: gon.male_eng_nums
+        name: 'Male Engineers',
+        data: gon.male_eng_nums
       }, {
-          name: 'Female Engineers',
-          data: gon.female_eng_nums
+        name: 'Female Engineers',
+        data: gon.female_eng_nums
       }]
     });
   });

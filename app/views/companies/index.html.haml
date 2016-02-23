@@ -9,22 +9,22 @@
             %a{ href: "#", id: "pie-chart-link"}
               Female vs. Male Software Engineer Ratio
           %li
-            = link_to("Female Software Engineer Around the World", {controller: "companies", action: "map"}, id: "city-chart-link")
+            = link_to("Female Software Engineer Around the World", {controller: "companies", action: "cities"}, id: "city-chart-link")
           %li
-            = link_to("Startup Roudup: Who have the most female engineers?", {controller: "companies", action: "charts"}, id: "company-chart-link")
+            = link_to("Startup Roudup: Who have the most female engineers?", {controller: "companies", action: "charts", pageRefresh: "1"}, id: "company-chart-link")
           %li
             %a{ href: "#", id: "download-link"}
               Download the stats
       .l-box.pure-u-1.pure-u-md-2-3.pure-u-lg-3-4
         #pie-chart{style: "width:100%;"}
-        #city-chart{style: "width:80%;"}
-        #company-chart{style: "width:80%;"}
+        #city-chart{style: "width:70%;"}
+        #company-chart{style: "width:70%;"}
       .l-box.pure-u-1
         %p.splash-subhead
           = link_to("Join the revolution", about_path)
           and help to change the face of software engineering
         %p
-          %a.pure-button.pure-button-primary{:href => "companies/new"} Contribute Your Stats
+          %a.pure-button.pure-button-primary{:href => "companies/new"} Add Your Company
 .content-wrapper
   .content
     %h2.content-head.is-center As a female in Software Engineering, I feel...
@@ -57,6 +57,11 @@
   $(function () {
     $("#city-chart").hide();
     $("#company-chart").hide();
+
+    $( window ).resize(function() {
+      $("#city-chart").css({'width': '100%'});
+      $("#company-chart").css({'width': '100%'});
+    });
 
     $("#pie-chart-link").hover(function(){
       $("#pie-chart").show();

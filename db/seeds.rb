@@ -277,6 +277,7 @@ companies = Company.create([
 ])
 
 stats = CompanyStaffStat.create([
+  # this records the total and needs to be updated
 { company_id: 1, user_id: 0, num_female_eng: 1296, num_eng: 5407 },
 { company_id: 2, user_id: 0, num_female_eng: 337, num_eng: 1425 },
 { company_id: 3, user_id: 0, num_female_eng: 43, num_eng: 500 },
