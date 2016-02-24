@@ -31,6 +31,7 @@ body {
 
 p {
     font-family:                        'Helvetica Neue', sans-serif;
+    text-align:                         center;
 }
 
 h1,
@@ -116,16 +117,16 @@ label {
  * -- PURE BUTTON STYLES --
  * I want my pure-button elements to look a little different
  */
-.pure-button {
+.content .pure-button {
     background-color:                   #00AB6B;
     color:                              white;
     padding:                            0.5em 2em;
     border-radius:                      5px;
-    font-weight:                        200;
+    font-weight:                        300;
 }
 
-.pure-button-primary,
-a.pure-button-primary {
+.content .pure-button-primary,
+.content a.pure-button-primary {
     background-color:                   #00AB6B;
     color:                              white;
     border-radius:                      5px;
@@ -232,13 +233,13 @@ a.pure-button-primary {
     border-bottom:                      1px solid #DDDDDD;
 }
 
-.splash ul li a {
+.content a {
     text-decoration:                    none;
-    color:                              #65657C;
+    color:                              #00A467;
 }
 
-.splash ul li a:hover,
-.splash ul li a:focus {
+.content a:hover,
+.content a:focus {
     color:                              black;
 }
 
@@ -317,6 +318,15 @@ a.pure-button-primary {
     text-transform:                     uppercase;
     letter-spacing:                     0.1em;
     margin:                             2em 0 1em;
+}
+
+h1.content-head {
+    font-weight:                        200;
+    margin:                             1em 0 1em;
+}
+
+h3.content-head {
+    margin:                             0.5em 0 0.5em;
 }
 
 /* This is a modifier class used when the content-head is inside a ribbon */

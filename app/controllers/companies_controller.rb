@@ -1,4 +1,5 @@
 require 'uri'
+require 'csv'
 include SanitizeUrl
 
 class CompaniesController < ApplicationController
@@ -183,5 +184,25 @@ class CompaniesController < ApplicationController
     hqs = Headquarter.where(id: hq_ids)
     gon.hq_female_ratio = hqs.map {|hq| hq.average_female_ratio*100}
     gon.hq_names = hqs.map(&:location_string)
+  end
+
+  def csv
+    @companies = Company.all
+    respond_to do |format|
+      format.html
+      format.csv do
+        output = CSV.generate do |csv|
+          csv << ['Name', 'Public/Private', 'URL', 'City', 'State', 'Country', 'Number of Female Software Engineers', 'Number of Male Software Engineers', 'Total Number of Software Engineers' ,'Total Company Size']
+
+          @companies.each do |c|
+            csv << [
+              c.name, c.is_public ? 'Public' : 'Private', c.url, c.headquarter.city, c.headquarter.state, c.headquarter.country, c.number_of_female_eng, c.number_of_male_eng, c.number_of_eng, c.company_size_tier.range
+            ]
+          end
+        end
+
+        send_data output, filename: "fedup_company_list.csv", type: 'text/csv'
+      end
+    end
   end
 end

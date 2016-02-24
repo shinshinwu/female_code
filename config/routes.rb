@@ -17,6 +17,8 @@ Rails.application.routes.draw do
     end
   end
 
+  get 'download/stats', to: 'companies#csv', constraints: {format: :csv}
+
   resources :users, only: [:new, :update] do
     collection do
       post '/new', to: 'users#update'
