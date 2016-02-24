@@ -96,6 +96,21 @@ class CompaniesController < ApplicationController
       redirect_to :back and return
     end
 
+    Honeybadger.context({
+      user_id:        @user.id,
+      company_id:     @company.try(:id),
+      company_name:   params[:company][:name].titleize,
+      original_url:   params[:company][:url].downcase.strip,
+      sanitized_url:  host_name,
+      public_status:  params[:company][:is_public],
+      company_size_tier_id: @company_size_tier.id,
+      num_female_eng: @num_female_eng,
+      num_eng:        @num_eng,
+      city:           params[:company][:headquarter][:city],
+      state:          params[:company][:headquarter][:state],
+      country:        params[:company][:headquarter][:country]
+    })
+
     # TODO: if found a match, what should it do?
     if @company.persisted?
       @new_stat = CompanyStaffStat.new(
@@ -145,16 +160,18 @@ class CompaniesController < ApplicationController
           @company.headquarter_id = headquarter.id
         end
 
-        if @company.save
+        begin
+          @company.save!
           @new_stat.company_id = @company.id
           @new_stat.save!
           flash[:notice] = "Thanks for your contribution!"
           render 'users/show'
-        else
+        rescue => exception
+          Honeybadger.notify(exception)
           # TODO: be more specific with the error here
           flash[:notice] = "Sorry something went wrong with you submission"
           redirect_to :back
-        end # end company.save
+        end # end company.save!
       end # end AR transaction
     end # end if/else
 

@@ -23,13 +23,24 @@ class UsersController < ApplicationController
     @user.salary          = @salary.to_f if @salary
     thought               = Thought.new(user_id: @user.id, thoughts: params[:user][:thoughts])
 
-    if @user.save
-        thought.save!
-        flash[:notice] = "Thank you for submitting stats!"
-        render 'show'
-    else
-        flash[:error]  = "Something has gone wrong with your submission"
-        redirect :back
+    Honeybadger.context({
+      user_id:        @user.id,
+      display_name:   params[:user][:display_name],
+      programming_language: params[:user][:programming_language_id],
+      salary:         params[:user][:salary],
+      thought:        params[:user][:thoughts]
+    })
+
+    begin
+      @user.save!
+      thought.save!
+      fail 'test'
+      flash[:notice] = "Thank you for submitting stats!"
+      render 'show'
+    rescue => exception
+      Honeybadger.notify(exception)
+      flash[:error]  = "Something has gone wrong with your submission"
+      render 'new'
     end
 
   end

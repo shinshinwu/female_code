@@ -1,23 +1,23 @@
 / ask user their language and salary info
 .content
-  %h2.content-head.is-center Moving call out to submit stats
+  %h2.content-head.is-center Your Profile
   .pure-g
     .pure-u-1.pure-u-md-1-5
     .pure-u-1.pure-u-md-1-5
       %h3 Your Name
-      %p.pure-u-23-24
+      .div
         = @user.display_name
     / need to ask if they are developer first and if they are, if they are female
     .pure-u-1.pure-u-md-2-5
       %h3 Your preferred weapon of destruction?
-      %p.pure-u-23-24
+      .div
         = @user.programming_language.language
     .pure-u-1.pure-u-md-1-5
 
     .pure-u-1.pure-u-md-1-5
     .pure-u-1.pure-u-md-3-5
       %h3 Your thoughts on being a female software engineer
-      %p.pure-u-23-24
+      .div
         - @user.thoughts.each do |thought|
           = "I feel ..." + thought.thoughts
           %br

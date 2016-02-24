@@ -43,6 +43,8 @@ gem 'gon',             '~> 5.2.3'                       # plugin to jam ruby var
 gem 'city-state',      '~> 0.0.13'                      # helper to layout all cities, states and countries
 gem 'sanitize-url',    '~> 0.1.4'
 
+gem 'honeybadger',      '~> 2.0'                        # for production debugging
+
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

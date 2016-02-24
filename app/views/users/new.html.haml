@@ -13,7 +13,7 @@
         .pure-u-1.pure-u-md-1-5
           = f.label :programming_language_id, "What's your preferred weapon of destruction?"
           .pure-u-1.pure-u-md-23-24
-            = f.select :programming_language_id, options_from_collection_for_select(ProgrammingLanguage.all, :id, :language), :include_blank => true, :required =>  true
+            = f.select :programming_language_id, options_from_collection_for_select(ProgrammingLanguage.all, :id, :language, @user.programming_language_id), :include_blank => true, :required =>  true
 
         .pure-u-1.pure-u-md-1-5
           .pure-u-1.pure-u-md-23-24
