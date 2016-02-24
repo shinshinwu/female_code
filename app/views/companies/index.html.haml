@@ -37,18 +37,21 @@
       .l-box.pure-u-1.pure-u-md-2-2.pure-u-lg-1-5
         %a.pure-button.pure-button-primary{:href => "users/new"} What's your thought?
   .content
-    %h3.content-head.is-center
-      Share the Cause
-    %h3.content-head.is-center
-      Change the face of Software Engineering
     .pure-g
-      .l-box-lrg.pure-u-1.pure-u-md-1-5
-      .l-box-lrg.pure-u-1.pure-u-md-3-5
-        .share-links
-          / need to update below code with font awesome
-          %a.twitter{"data-icon" => "&#xea92;", href: "https://twitter.com/cakeisnotreal"}
-          %a.facebook{"data-icon" => "&#xeac8;", href:"http://www.linkedin.com/pub/anna-wu/29/618/99b/"}
-          %a.medium{"data-icon" => "&#xf23a;", href:"http://medium.com"}
+      .pure-u-1
+        %h3.content-head.is-center
+          Share the Cause
+      .pure-u-1
+        %h3.content-head.is-center
+          Change the face of Software Engineering
+      .pure-u-1.pure-u-md-2-5
+      .pure-u-1.pure-u-md-1-5.share-links
+        .pure-u-1.pure-u-md-2-5
+          %a{href: "https://twitter.com/share", class:"twitter-share-button", "data-text" => "Support female in software engineering!", "data-size" => "large", "data-hashtags" => "wearefedup"}
+        .pure-u-1.pure-u-md-2-5
+          .fb-share-button{"data-href" => "/", "data-layout" => "button"}
+      .pure-u-1.pure-u-md-2-5
+
   .footer.l-box.is-center
     %span Made with <3 by
     %a{ href: "http://shinshinwu.github.io", title: "Anna Wu", target: "_blank" }
@@ -57,6 +60,7 @@
 
 :javascript
   $(function () {
+
     $("#city-chart").hide();
     $("#company-chart").hide();
 

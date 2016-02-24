@@ -34,7 +34,6 @@ class UsersController < ApplicationController
     begin
       @user.save!
       thought.save!
-      fail 'test'
       flash[:notice] = "Thank you for submitting stats!"
       render 'show'
     rescue => exception

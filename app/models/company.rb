@@ -23,4 +23,9 @@ class Company < ActiveRecord::Base
   def male_ratio
     number_of_male_eng / number_of_eng.to_f
   end
+
+  def approved?
+    company_staff_stats.approved.present?
+  end
+
 end

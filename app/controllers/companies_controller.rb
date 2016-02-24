@@ -38,7 +38,7 @@ class CompaniesController < ApplicationController
     gon.hq_names = hqs.map(&:location_string)
 
     # TOP 10 COMPANIES BAR CHART
-    @companies = Company.all.sort_by(&:female_ratio).last(10).reverse
+    @companies = Company.select(&:approved?).sort_by(&:female_ratio).last(10).reverse
     gon.company_names   = @companies.map(&:name)
     gon.female_ratio = @companies.map{ |c| c.female_ratio * 100}
   end
