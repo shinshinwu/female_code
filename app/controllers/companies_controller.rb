@@ -3,7 +3,7 @@ require 'csv'
 include SanitizeUrl
 
 class CompaniesController < ApplicationController
-  before_filter :authenticate_user!, :only => [:new, :states, :cities]
+  before_filter :authenticate_user!, :only => [:new, :create, :states, :cities]
 
   def index
     @thoughts                = Thought.approved
