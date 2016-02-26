@@ -8,7 +8,7 @@
           %li
             = link_to("Female vs. Male Software Engineer Ratio", {controller: "companies", action: "charts", pageRefresh: "1"}, id: "pie-chart-link")
           %li
-            = link_to("Female Software Engineer Around the World", {controller: "companies", action: "cities"}, id: "city-chart-link")
+            = link_to("Female Software Engineer Around the World", {controller: "companies", action: "top_cities"}, id: "city-chart-link")
           %li
             = link_to("Startup Roudup: Who have the most female engineers?", {controller: "companies", action: "charts", pageRefresh: "1"}, id: "company-chart-link")
           %li
@@ -33,9 +33,11 @@
           %blockquote.quotes
             = "... " + thought.thoughts
     %p
-      .l-box.pure-u-1.pure-u-md-2-2.pure-u-lg-2-5
-      .l-box.pure-u-1.pure-u-md-2-2.pure-u-lg-1-5
+      .l-box.pure-u-sm-1-3.pure-u-md-2-5
+      .l-box.pure-u-sm-1-3.pure-u-md-1-5
         %a.pure-button.pure-button-primary{:href => "users/new"} What's your thought?
+      .l-box.pure-u-sm-1-3.pure-u-md-2-5
+
   .content
     .pure-g
       .pure-u-1

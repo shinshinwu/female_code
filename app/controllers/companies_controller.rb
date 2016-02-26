@@ -185,7 +185,7 @@ class CompaniesController < ApplicationController
     gon.male_eng_nums  = @companies.map(&:number_of_male_eng)
   end
 
-  def cities
+  def top_cities
     # select the top 10 cities for startup hqs in terms of popularity in order of hq id, occurance and city
 
     # instead of a map, we can show a stacked bar chart with top cities and their count of occurance versus their female engineer percentage
