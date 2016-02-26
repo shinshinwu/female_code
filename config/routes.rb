@@ -11,7 +11,7 @@ Rails.application.routes.draw do
   resources :companies, only: [:index, :new, :create] do
     collection do
       get '/stats', to: 'companies#charts'
-      get '/cities', to: 'companies#cities'
+      get '/top-cities', to: 'companies#top_cities'
       get '/:country_code/states', to: 'companies#states'
       get '/:state_code/cities', to: 'companies#cities'
     end

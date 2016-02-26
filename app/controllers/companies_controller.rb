@@ -6,6 +6,7 @@ class CompaniesController < ApplicationController
   before_filter :authenticate_user!, :only => [:new, :create, :states, :cities]
 
   def index
+    begin
     @thoughts                = Thought.approved
     @company_stats           = CompanyStaffStat.approved
 
@@ -41,6 +42,11 @@ class CompaniesController < ApplicationController
     @companies = Company.select(&:approved?).sort_by(&:female_ratio).last(10).reverse
     gon.company_names   = @companies.map(&:name)
     gon.female_ratio = @companies.map{ |c| c.female_ratio * 100}
+  rescue => e
+    p e
+    p e.message
+    raise e
+  end
   end
 
   def new
