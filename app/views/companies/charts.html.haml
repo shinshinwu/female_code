@@ -10,6 +10,7 @@
       chart: {
         type: 'bar'
       },
+      colors: ['#434348', '#00A064'],
       credits: { enabled: false },
       title: {
         text: 'Female Engineers Percentage by Companies',
@@ -34,6 +35,10 @@
           text: 'Female Engineers Percentage'
         }
       }],
+      tooltip: {
+        pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}</b> ({point.percentage:.0f}%)<br/>',
+        valueSuffix: ' engineers'
+      },
       legend: {
         reversed: true,
         align: 'center',

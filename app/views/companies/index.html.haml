@@ -8,7 +8,7 @@
           %li
             = link_to("Female vs. Male Software Engineer Ratio", {controller: "companies", action: "charts", pageRefresh: "1"}, id: "pie-chart-link")
           %li
-            = link_to("Female Software Engineer Around the World", {controller: "companies", action: "top_cities"}, id: "city-chart-link")
+            = link_to("Female Software Engineer Around the World", {controller: "companies", action: "top_cities", pageRefresh: "1"}, id: "city-chart-link")
           %li
             = link_to("Startup Roudup: Who have the most female engineers?", {controller: "companies", action: "charts", pageRefresh: "1"}, id: "company-chart-link")
           %li
@@ -95,6 +95,7 @@
             plotShadow: false,
             type: 'pie'
         },
+        colors: ['#00A064', '#434348'],
         credits: { enabled: false },
         exporting: { enabled: false },
         title: {
@@ -143,6 +144,7 @@
       chart: {
         type: 'column'
       },
+      colors: ['#434348', '#00A064'],
       credits: { enabled: false },
       exporting: { enabled: false },
       title: {
@@ -155,20 +157,22 @@
         categories: gon.hq_names,
         crosshair: true
       },
-      yAxis: {
+      yAxis: [{
         min: 0,
         title: {
-            text: 'Female Engineer Percentage'
+            text: 'Number of Startups'
         }
-      },
-      tooltip: {
-        headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-        pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-            '<td style="padding:0"><b>{point.y:.0f}</b></td></tr>',
-        footerFormat: '</table>',
-        shared: true,
-        useHTML: true
-      },
+      },{
+        min: 0,
+        max: 100,
+        title: {
+          text: 'Avg Female Engineer %'
+        },
+        labels: {
+          format: '{value}%'
+        },
+        opposite: true
+      }],
       plotOptions: {
         column: {
           pointPadding: 0.2,
@@ -183,11 +187,22 @@
         }
       },
       series: [{
-        name: 'Total number of companies',
-        data: gon.count
+        name: 'Number of Startups in the Area',
+        data: gon.count,
+        tooltip: {
+          pointFormat: '<b>{point.y:.0f} Companies</b>',
+          useHTML: true
+        },
       }, {
         name: 'Average Female Engineer % in the Area',
-        data: gon.hq_female_ratio
+        data: gon.hq_female_ratio,
+        dataLabels: {
+          format: "{y:.0f}%"
+        },
+        tooltip: {
+          pointFormat: '<b>{point.y:.0f}% of Female Engineers</b>',
+          useHTML: true
+        },
       }]
     });
 
@@ -195,6 +210,7 @@
       chart: {
         type: 'column'
       },
+      colors: ['#00A064', '#434348'],
       credits: { enabled: false },
       exporting: { enabled: false },
       title: {

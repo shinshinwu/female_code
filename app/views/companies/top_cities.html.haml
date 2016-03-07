@@ -1,28 +1,53 @@
+= stylesheet_link_tag    'charts'
+
 .chart-wrapper
-  #map-chart
+  #bar-chart
 
 :javascript
   $(function () {
-    $('.chart-wrapper').highcharts({
+    $('#bar-chart').highcharts({
       chart: {
-        type: 'column'
+        type: 'bar'
       },
+      colors: ['#434348', '#00A064'],
       credits: { enabled: false },
+      exporting: { enabled: false },
       title: {
-        text: 'Top Startup Cities'
+        text: 'Startup Cities'
       },
       subtitle: {
         text: 'By headquarter location'
       },
       xAxis: {
         categories: gon.hq_names,
-        crosshair: true
+        title: {
+          text: null
+        }
       },
-      yAxis: {
+      yAxis: [{
         min: 0,
         title: {
-            text: 'Female Engineer Percentage'
+            text: 'Number of Startup Companies'
+        },
+        labels: {
+          overflow: 'justify'
         }
+      },{
+        title: {
+          text: 'Female Engineer Percentage'
+        },
+        opposite: true
+      }],
+      legend: {
+        layout: 'vertical',
+        align: 'right',
+        verticalAlign: 'top',
+        x: -40,
+        y: 150,
+        floating: true,
+        borderWidth: 1,
+        backgroundColor: '#FFFFFF',
+        shadow: true
       },
       tooltip: {
         headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
@@ -33,12 +58,7 @@
         useHTML: true
       },
       plotOptions: {
-        column: {
-          pointPadding: 0.2,
-          borderWidth: 0
-        },
-        series: {
-          borderWidth: 0,
+        bar: {
           dataLabels: {
             enabled: true,
             format: '{point.y:.0f}'
@@ -46,7 +66,7 @@
         }
       },
       series: [{
-        name: 'Total number of companies',
+        name: 'Number of Startups in the Area',
         data: gon.count
       }, {
         name: 'Average Female Engineer % in the Area',
