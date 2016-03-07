@@ -45,6 +45,7 @@ gem 'sanitize-url',    '~> 0.1.4'
 
 gem 'honeybadger',      '~> 2.0'                        # for production debugging
 
+gem 'font-awesome-rails', '~> 4.5.0.1'                  # icon assets
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

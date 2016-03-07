@@ -51,11 +51,11 @@
         .pure-u-1
           .fb-share-button{"data-href" => "/", "data-layout" => "button"}
         .pure-u-1
-          %a{href: "https://twitter.com/share", class:"twitter-share-button", "data-text" => "Support female in software engineering!", "data-size" => "large", "data-hashtags" => "wearefedup"}
+          %a{href: "https://twitter.com/share", class:"twitter-share-button", "data-text" => "Support female in software engineering!", "data-size" => "large", "data-hashtags" => "WeAreFEDUP,PledgeForParity"}
       .pure-u-1-3.pure-u-md-12-24
 
   .footer.l-box.is-center
-    %span Made with <3 by
+    %span Made with <i class="fa fa-heart"></i> by
     %a{ href: "http://shinshinwu.github.io", title: "Anna Wu", target: "_blank" }
       Anna Wu
 
@@ -104,9 +104,6 @@
         subtitle: {
         text: 'Based on ' + gon.stats_count + ' unaltered user submitted stats'
         },
-        tooltip: {
-            pointFormat: 'Percentage: <b>{point.percentage:.1f}%</b>'
-        },
         plotOptions: {
             pie: {
                 allowPointSelect: true,
@@ -122,14 +119,18 @@
         series: [{
             name: 'Percentage',
             colorByPoint: true,
+            tooltip: {
+              pointFormat: '<b>{point.percentage:.1f}%</b>',
+              useHTML: true
+            },
             data: [{
-                name: 'Female Engineers',
-                y: gon.female_percentage,
-                sliced: true,
-                selected: true,
-                dataLabels: {
-                  format: gon.female_engineers_num + ' <b>{point.name}</b><br />{point.percentage:.1f} %'
-                }
+            name: 'Female Engineers',
+            y: gon.female_percentage,
+            sliced: true,
+            selected: true,
+            dataLabels: {
+              format: gon.female_engineers_num + ' <b>{point.name}</b><br />{point.percentage:.1f} %'
+            }
             }, {
                 name: 'Male Engineers',
                 y: gon.male_percentage,
@@ -154,8 +155,7 @@
         text: 'By headquarter location'
       },
       xAxis: {
-        categories: gon.hq_names,
-        crosshair: true
+        categories: gon.hq_names
       },
       yAxis: [{
         min: 0,
@@ -192,7 +192,7 @@
         tooltip: {
           pointFormat: '<b>{point.y:.0f} Companies</b>',
           useHTML: true
-        },
+        }
       }, {
         name: 'Average Female Engineer % in the Area',
         data: gon.hq_female_ratio,
@@ -202,7 +202,7 @@
         tooltip: {
           pointFormat: '<b>{point.y:.0f}% of Female Engineers</b>',
           useHTML: true
-        },
+        }
       }]
     });
 
@@ -225,6 +225,9 @@
       },
       yAxis: {
         min: 0,
+        labels: {
+          format: '{value}%'
+        },
         title: {
             text: 'Female Engineer Percentage'
         }

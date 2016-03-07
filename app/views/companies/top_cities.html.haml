@@ -31,31 +31,28 @@
         },
         labels: {
           overflow: 'justify'
-        }
-      },{
-        title: {
-          text: 'Female Engineer Percentage'
         },
         opposite: true
+      },{
+        min: 0,
+        max: 80,
+        title: {
+          text: 'Avg Female Engineer %'
+        },
+        labels: {
+          format: '{value}%'
+        }
       }],
       legend: {
         layout: 'vertical',
         align: 'right',
         verticalAlign: 'top',
         x: -40,
-        y: 150,
+        y: 200,
         floating: true,
         borderWidth: 1,
         backgroundColor: '#FFFFFF',
         shadow: true
-      },
-      tooltip: {
-        headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-        pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-            '<td style="padding:0"><b>{point.y:.0f}</b></td></tr>',
-        footerFormat: '</table>',
-        shared: true,
-        useHTML: true
       },
       plotOptions: {
         bar: {
@@ -67,10 +64,21 @@
       },
       series: [{
         name: 'Number of Startups in the Area',
-        data: gon.count
+        data: gon.count,
+        tooltip: {
+          pointFormat: '<b>{point.y:.0f} Companies</b>',
+          useHTML: true
+        }
       }, {
         name: 'Average Female Engineer % in the Area',
-        data: gon.hq_female_ratio
+        data: gon.hq_female_ratio,
+        dataLabels: {
+          format: "{y:.0f}%"
+        },
+        tooltip: {
+          pointFormat: '<b>{point.y:.0f}% of Female Engineers</b>',
+          useHTML: true
+        }
       }]
     });
   });

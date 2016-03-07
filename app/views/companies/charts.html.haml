@@ -21,18 +21,28 @@
       },
       yAxis: [{
         min: 0,
+        max: 100,
         title: {
-          text: 'Female Engineers Percentage'
+          text: null
         },
-        opposite: true
+        minTickInterval: 10,
+        opposite: true,
+        labels: {
+          format: '{value}%'
+        }
       },
       {
         min: 0,
+        max: 100,
+        minTickInterval: 10,
         labels: {
           format: '{value} %'
         },
         title: {
-          text: 'Female Engineers Percentage'
+          text: 'Female/Male Engineers Distribution'
+        },
+        labels: {
+          format: '{value}%'
         }
       }],
       tooltip: {
