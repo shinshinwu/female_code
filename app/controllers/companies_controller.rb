@@ -130,7 +130,7 @@ class CompaniesController < ApplicationController
         @new_stat.company_id = @company.id
         @new_stat.save!
         flash[:notice] = "Thank you for your contribution!"
-        redirect_to new_user_path
+        render 'users/show'
       else
         # TODO: be more specific with the error here
         flash[:notice] = "Sorry something went wrong with you submission"
@@ -171,11 +171,9 @@ class CompaniesController < ApplicationController
           @new_stat.company_id = @company.id
           @new_stat.save!
           flash[:notice] = "Thank you for your contribution!"
-          redirect_to new_user_path
+          render 'users/show'
         rescue => exception
           Honeybadger.notify(exception)
-          p exception
-          p exception.message
           flash[:notice] = "Sorry something went wrong with you submission"
           redirect_to :back
         end # end company.save!
