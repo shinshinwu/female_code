@@ -68,7 +68,7 @@
     $("#city-chart").hide();
     $("#company-chart").hide();
 
-    $( window ).resize(function() {
+    $(window).resize(function() {
       $("#city-chart").css({'width': '100%'});
       $("#company-chart").css({'width': '100%'});
     });
@@ -104,7 +104,7 @@
             text: 'Female vs. Male Software Engineer Ratio'
         },
         subtitle: {
-        text: 'Based on ' + gon.stats_count + ' unaltered user submitted stats'
+        text: 'Based on <span style="color:red;font-weight:bold;">' + gon.stats_count + '</span> unaltered user submitted data across <span style="color:red;font-weight:bold;">' + gon.companies_count + '</span> companies'
         },
         plotOptions: {
             pie: {

@@ -34,6 +34,7 @@ class CompaniesController < ApplicationController
       count << sql[1]
     end
     gon.count = count
+    gon.companies_count = Company.count
     hqs = Headquarter.where(id: hq_ids)
     gon.hq_female_ratio = hqs.map {|hq| hq.average_female_ratio*100}
     gon.hq_names = hqs.map(&:location_string)
@@ -185,7 +186,7 @@ class CompaniesController < ApplicationController
   end
 
   def charts
-    @companies = Company.order(:name)
+    @companies = Company.order(:name).select(&:approved?)
 
     gon.company_names   = @companies.map(&:name)
     gon.female_eng_nums = @companies.map(&:number_of_female_eng)
