@@ -19,13 +19,18 @@ class UsersController < ApplicationController
     @salary               = params[:user][:salary]
 
     @user.display_name    = @display_name if @display_name
+    @user.email           = params[:user][:email]
+    @user.gender          = params[:user][:gender]
     @user.programming_language_id = @programming_language.id if @programming_language
     @user.salary          = @salary.to_f if @salary
-    thought               = Thought.new(user_id: @user.id, thoughts: params[:user][:thoughts])
+    thought               = if params[:user][:thoughts].present?
+      Thought.new(user_id: @user.id, thoughts: params[:user][:thoughts])
+    end
 
     Honeybadger.context({
       user_id:        @user.id,
       display_name:   params[:user][:display_name],
+      email:          params[:user][:email],
       programming_language: params[:user][:programming_language_id],
       salary:         params[:user][:salary],
       thought:        params[:user][:thoughts]
@@ -33,8 +38,8 @@ class UsersController < ApplicationController
 
     begin
       @user.save!
-      thought.save!
-      flash[:notice] = "Thank you for submitting stats!"
+      thought.save! if thought
+      flash[:notice] = "Profile Successfully Saved!"
       render 'show'
     rescue => exception
       Honeybadger.notify(exception)

@@ -1,32 +1,45 @@
 / ask user their language and salary info
 .content
-  %h2.content-head.is-center Moving call out to submit stats
+  %h2.content-head.is-center Your Personal Profile
+  %p.is-center All inputs are optional and your information will not be shared with any 3rd parties
   = form_for @user, url: {action: "update"}, html:{class: 'form pure-form pure-form-stacked center'} do |f|
     %fieldset
       .pure-g
-        .pure-u-1.pure-u-md-1-5
-        .pure-u-1.pure-u-md-1-5
+        .pure-u-1.pure-u-md-1-4
+        .pure-u-1.pure-u-md-1-4
           = f.label :display_name, "Your Name"
           .pure-u-1.pure-u-md-23-24
             = f.text_field :display_name, :value => @user.name
-        / need to ask if they are developer first and if they are, if they are female
-        .pure-u-1.pure-u-md-1-5
-          = f.label :programming_language_id, "What's your preferred weapon of destruction?"
+        .pure-u-1.pure-u-md-1-4
+          = f.label :email, "Your Email"
           .pure-u-1.pure-u-md-23-24
-            = f.select :programming_language_id, options_from_collection_for_select(ProgrammingLanguage.all, :id, :language, @user.programming_language_id), :include_blank => true, :required =>  true
+            = f.email_field :email, :value => @user.email
+        .pure-u-1.pure-u-md-1-4
 
-        .pure-u-1.pure-u-md-1-5
+        .pure-u-1.pure-u-md-1-4
+        .pure-u-1.pure-u-md-1-4
+          = f.label :gender, "Your Gender"
+          .pure-u-1.pure-u-md-23-24
+            = f.select :gender, options_for_select([['Female', 'female'], ['Male', 'male']], @user.gender)
+        .pure-u-1.pure-u-md-1-4
           .pure-u-1.pure-u-md-23-24
             = f.label :salary, 'What is your annual salary?'
-            = f.number_field :salary, :min => 1000, :max => 10000000
-        .pure-u-1.pure-u-md-1-5
+            = f.number_field :salary, :min => 1000, :max => 10000000, :value => @user.salary
+        .pure-u-1.pure-u-md-1-4
 
-        .pure-u-1.pure-u-md-1-5
-        .pure-u-1.pure-u-md-3-5
+        .pure-u-1.pure-u-md-1-4
+        .pure-u-1.pure-u-md-3-4
+          = f.label :programming_language_id, "What's your preferred weapon of destruction?"
+          .pure-u-1.pure-u-md-23-24
+            = f.select :programming_language_id, options_from_collection_for_select(ProgrammingLanguage.all, :id, :language, @user.programming_language_id), :include_blank => true
+      .pure-g
+        .pure-u-1.pure-u-md-6-24
+        .pure-u-1.pure-u-md-12-24
           %label{:for => "thoughts"} "Being a female software engineer, I feel ..."
-          = text_area_tag "[user]thoughts", nil, :placeholder => "... like I need to be careful with how I act all the time...", :row => '4'
-        .pure-u-1.pure-u-md-1-5
+          .pure-u-1.pure-u-md-23-24
+            = text_area_tag "[user]thoughts", nil, :placeholder => "... like I need to be careful with how I act all the time...", :row => '4'
 
+      .pure-g
         .pure-u-1.pure-u-md-2-5
         .pure-u-1.pure-u-md-1-5
           = f.submit "Submit", :class => 'button pure-button'

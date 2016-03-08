@@ -7,7 +7,7 @@ class CompaniesController < ApplicationController
 
   def index
     begin
-    @thoughts                = Thought.approved
+    @thoughts                = Thought.approved.limit(50).order("RAND()")
     @company_stats           = CompanyStaffStat.approved
 
     # RATIO PIE CHART
@@ -129,7 +129,7 @@ class CompaniesController < ApplicationController
       if @new_stat.save
         @new_stat.company_id = @company.id
         @new_stat.save!
-        flash[:notice] = "Thanks for your contribution!"
+        flash[:notice] = "Thank you for your contribution!"
         render 'users/show'
       else
         # TODO: be more specific with the error here
@@ -170,7 +170,7 @@ class CompaniesController < ApplicationController
           @company.save!
           @new_stat.company_id = @company.id
           @new_stat.save!
-          flash[:notice] = "Thanks for your contribution!"
+          flash[:notice] = "Thank you for your contribution!"
           render 'users/show'
         rescue => exception
           Honeybadger.notify(exception)
