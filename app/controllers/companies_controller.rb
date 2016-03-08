@@ -184,9 +184,9 @@ class CompaniesController < ApplicationController
   end
 
   def charts
-    @companies = Company.all
+    @companies = Company.order(:name)
 
-    gon.company_names   = @companies.pluck(:name)
+    gon.company_names   = @companies.map(&:name)
     gon.female_eng_nums = @companies.map(&:number_of_female_eng)
     gon.male_eng_nums  = @companies.map(&:number_of_male_eng)
   end
